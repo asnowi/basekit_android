@@ -1,0 +1,29 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="CommonAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/common_primary</item>
+        <item name="colorPrimaryDark">@color/common_primaryDark</item>
+        <item name="colorAccent">@color/common_accent</item>
+    </style>
+
+    <style name="CommonNoTitleBarTheme" parent="CommonAppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CommonSplashTheme" parent="CommonNoTitleBarTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+    </style>
+
+    <style name="CommonFullscreenTheme" parent="CommonNoTitleBarTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/common_trans</item>
+    </style>
+
+    <style name="CommonTransitionsTheme" parent="CommonNoTitleBarTheme">
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+
+</resources>
