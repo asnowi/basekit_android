@@ -1,0 +1,15 @@
+ext {
+    android = [
+            applicationId    : "net.hyntech.test",
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            versionLibCode   : 100,
+            versionLibName   : "1.0.0",
+
+             /****** app 版本号 *****/
+            versionCode      : 100,
+            versionName      : "1.0.0",
+    ]
+}
