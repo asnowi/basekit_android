@@ -1,0 +1,4 @@
+include ':common'
+include ':baselib'
+include ':app'
+rootProject.name = "basekit_android"
