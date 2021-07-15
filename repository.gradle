@@ -6,7 +6,7 @@ static def addRepository(RepositoryHandler handler) {
 
     handler.google()
 //    handler.maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-//    handler.maven { url "https://jitpack.io" }
+    handler.maven { url "https://jitpack.io" }
 //    handler.maven{ url 'https://maven.aliyun.com/repository/releases'}
     handler.maven { url "https://maven.goole.com" }
     handler.mavenCentral()
