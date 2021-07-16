@@ -13,13 +13,12 @@
     </style>
 
     <style name="CommonSplashTheme" parent="CommonNoTitleBarTheme">
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/common_trans</item>
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
     <style name="CommonFullscreenTheme" parent="CommonNoTitleBarTheme">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@color/common_trans</item>
     </style>
 
     <style name="CommonTransitionsTheme" parent="CommonNoTitleBarTheme">

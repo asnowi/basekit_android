@@ -8,4 +8,5 @@
     <color name="common_black">#000000</color>
     <color name="common_trans">#00000000</color>
 
+    <color name="common_background">#3338B7FE</color>
 </resources>

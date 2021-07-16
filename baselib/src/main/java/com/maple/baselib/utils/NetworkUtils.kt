@@ -8,6 +8,7 @@ import com.maple.baselib.app.BaseApp
 /**
  * 网络工具类
  */
+
 object NetworkUtil {
 
     /**
@@ -20,6 +21,7 @@ object NetworkUtil {
     /**
      * 是否使用基站联网
      */
+    @Suppress("DEPRECATION")
     fun isStationConnection(): Boolean {
         val manager = BaseApp.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
             ?: return false
@@ -32,6 +34,7 @@ object NetworkUtil {
     /**
      * 是否使用WIFI联网
      */
+    @Suppress("DEPRECATION")
     fun isWifiConnection(): Boolean {
         val manager = BaseApp.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
             ?: return false
@@ -45,6 +48,7 @@ object NetworkUtil {
     /**
      * 网络连接类型
      */
+    @Suppress("DEPRECATION")
     fun netWorkType (): NetType {
         val manager = BaseApp.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager?: return NetType.NO_NET
         val activeNetwork = manager.activeNetworkInfo

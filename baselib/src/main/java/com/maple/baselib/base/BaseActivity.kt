@@ -1,5 +1,7 @@
 package com.maple.baselib.base
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseActivity: AppCompatActivity(), IView {
+
+    /// 传递bundle 数据 Key
+    private val KEY_BUNDLE_DATA: String = "BUNDLE_DATA"
 
     /// 布局id
     abstract fun getLayoutId(): Int
@@ -28,6 +33,10 @@ abstract class BaseActivity: AppCompatActivity(), IView {
     /// 回退事件
     open fun onKeyBack(keyCode: Int) {}
 
+    /// 获取封装 bundle
+    open fun getBundle(): Bundle? {
+        return this.intent?.getBundleExtra(KEY_BUNDLE_DATA)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +51,25 @@ abstract class BaseActivity: AppCompatActivity(), IView {
     /// 设置布局文件(BaseActivity 和 BaseViewActivity分别重写)
     open fun setContentLayout() {
         setContentView(getLayoutId())
+    }
+
+    /***
+     * 打开新的页面
+     * @param clazz 新页面
+     * @param bundle 传递bundle 数据,非必填
+     * @param isFinish 是否关闭当前页面 默认不关闭
+     */
+    open fun onStartActivity(
+        clazz: Class<out Activity?>,
+        bundle: Bundle? = null,
+        isFinish: Boolean = false
+    ) {
+        this.startActivity(Intent(this, clazz).apply {
+            bundle?.let {
+                this.putExtra(KEY_BUNDLE_DATA, it)
+            }
+        })
+        if (isFinish) this.finish()
     }
 
     /// 回退
