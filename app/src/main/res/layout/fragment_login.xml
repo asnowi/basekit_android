@@ -1,24 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.maple.basekit.vm.AccountViewModel" />
     </data>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:context=".ui.fragment.LoginFragment">
+        android:background="@color/common_background"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="login" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_login"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="H,14:9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="30dp">
+
+            <LinearLayout style="@style/common_style_account"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_input_bg">
+
+                <ImageView
+                    style="@style/common_style_account_icon"
+                    android:src="@drawable/ic_account" />
+
+                <com.maple.common.widget.view.ClearEditText
+                    android:id="@+id/et_account"
+                    style="@style/common_style_account_input"
+                    android:background="@null"
+                    android:hint="账号" />
+            </LinearLayout>
+
+
+
+            <LinearLayout style="@style/common_style_account"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_input_bg">
+
+                <ImageView
+                    style="@style/common_style_account_icon"
+                    android:src="@drawable/ic_password" />
+
+                <com.maple.common.widget.view.EyeEditText
+                    android:id="@+id/et_password"
+                    style="@style/common_style_account_input"
+                    android:background="@null"
+                    android:hint="密码" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_common"
+                android:text="登录"
+                android:textColor="@color/common_white"
+                android:textSize="@dimen/common_font_text" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </layout>
