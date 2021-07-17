@@ -25,4 +25,26 @@
         <item name="android:windowActivityTransitions">true</item>
     </style>
 
+    <style name="common_style_toolbar">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/common_toolbar</item>
+    </style>
+
+    <style name="common_style_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/common_white</item>
+        <item name="android:textSize">@dimen/common_font_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="common_style_title_txt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/common_white</item>
+        <item name="android:textSize">@dimen/common_font_text</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
 </resources>

@@ -9,4 +9,7 @@
     <color name="common_trans">#00000000</color>
 
     <color name="common_background">#3338B7FE</color>
+
+    <color name="common_toolbar">#38B7FE</color>
+
 </resources>
