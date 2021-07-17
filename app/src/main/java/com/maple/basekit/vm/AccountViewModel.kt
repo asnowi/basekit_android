@@ -4,4 +4,6 @@ import com.maple.baselib.base.BaseViewModel
 
 class AccountViewModel: BaseViewModel(){
 
+
+
 }

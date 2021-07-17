@@ -1,10 +1,8 @@
 package com.maple.baselib.base
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maple.baselib.app.BaseApp
 import com.maple.baselib.app.ResultCode
 import com.maple.baselib.http.error.ERROR
 import com.maple.baselib.http.error.ExceptionHandle
@@ -16,7 +14,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-open class BaseViewModel(app: Application = BaseApp.instance): AndroidViewModel(app), LifecycleObserver {
+open class BaseViewModel: ViewModel(), LifecycleObserver {
 
     val defUI: UIChange by lazy { UIChange() }
 

@@ -9,6 +9,6 @@ class SplashActivity : BaseActivity() {
 
     override fun initData(savedInstanceState: Bundle?) {
 
-        onStartActivity(WelcomeActivity::class.java, isFinish = true)
+        onStartActivity(AccountActivity::class.java, isFinish = true)
     }
 }
