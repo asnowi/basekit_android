@@ -9,6 +9,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    resourcePrefix "common_" //给 Module 内的资源名增加前缀, 避免资源名冲突, 建议使用 Module 名作为前缀
+
     // Gradle Plugin 4.0 及以上
     buildFeatures {
         dataBinding true
