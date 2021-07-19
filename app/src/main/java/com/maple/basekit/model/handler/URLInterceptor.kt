@@ -3,6 +3,7 @@ package com.maple.basekit.model.handler
 import android.text.TextUtils
 import com.maple.basekit.app.config.Config
 import com.maple.baselib.utils.LogUtils
+import com.maple.common.app.Global
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
@@ -18,15 +19,17 @@ class URLInterceptor: Interceptor {
         //获取request的创建者builder
         val builder = request.newBuilder()
         //从request中获取headers，通过给定的键url_name
-        val headerValues:List<String>? = request.headers("urlname")
+        val headerValues:List<String>? = request.headers(Global.DOMAIN)
         if (headerValues != null && headerValues.isNotEmpty()) {
             //如果有这个header，先将配置的header删除，因此header仅用作app和okhttp之间使用
-            builder.removeHeader("urlname")
+            builder.removeHeader(Global.DOMAIN)
             //匹配获得新的BaseUrl
             val headerValue = headerValues.first()
             val newBaseUrl: HttpUrl? =
-                if (TextUtils.equals("hyntech",headerValue)) {
+                if (TextUtils.equals(Global.URL_HYNTECH,headerValue)) {
                     Config.BASE_URL.toHttpUrlOrNull()
+                } else if(TextUtils.equals(Global.URL_DEV,headerValue)) {
+                    Config.DEV_URL.toHttpUrlOrNull()
                 } else{
                     oldHttpUrl
                 }
@@ -41,6 +44,7 @@ class URLInterceptor: Interceptor {
                 //重建这个request，通过builder.url(newFullUrl).build()；
                 // 然后返回一个response至此结束修改
                 LogUtils.logGGQ("URLInterceptor->>${newFullUrl}")
+
                 return chain.proceed(builder.url(newFullUrl).build())
             }
         }

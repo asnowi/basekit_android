@@ -9,7 +9,6 @@
             type="com.maple.basekit.vm.AccountViewModel" />
     </data>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,6 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,7 +39,8 @@
             android:paddingTop="20dp"
             android:paddingEnd="30dp">
 
-            <LinearLayout style="@style/common_style_account"
+            <LinearLayout
+                style="@style/common_style_account"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_input_bg">
 
@@ -51,12 +52,13 @@
                     android:id="@+id/et_account"
                     style="@style/common_style_account_input"
                     android:background="@null"
+                    android:text="@{viewModel.account}"
                     android:hint="账号" />
             </LinearLayout>
 
 
-
-            <LinearLayout style="@style/common_style_account"
+            <LinearLayout
+                style="@style/common_style_account"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_input_bg">
 
@@ -68,7 +70,9 @@
                     android:id="@+id/et_password"
                     style="@style/common_style_account_input"
                     android:background="@null"
-                    android:hint="密码" />
+                    android:hint="密码"
+                    android:text="@{viewModel.password}"
+                    android:inputType="textPassword" />
             </LinearLayout>
 
             <Button
@@ -77,11 +81,12 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/selector_common"
                 android:text="登录"
+                android:enabled="@{viewModel.loginState}"
+                android:onClick="@{(v) -> viewModel.onLogin()}"
                 android:textColor="@color/common_white"
                 android:textSize="@dimen/common_font_text" />
 
         </LinearLayout>
 
     </LinearLayout>
-
 </layout>

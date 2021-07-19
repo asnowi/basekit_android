@@ -1,6 +1,8 @@
 package com.maple.common.widget.view
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -9,6 +11,9 @@ import androidx.appcompat.widget.AppCompatEditText
 import com.maple.common.R
 
 class EyeEditText:AppCompatEditText {
+
+    private var isOpen: Boolean = false
+
 
     constructor(context: Context) : super(context)
 
@@ -19,6 +24,7 @@ class EyeEditText:AppCompatEditText {
         attributeSet,
         defStyleAttr
     )
+
     private var listener: OnClickListener? = null
 
     fun setListener(listener: OnClickListener?){
@@ -26,16 +32,17 @@ class EyeEditText:AppCompatEditText {
     }
 
 
-    private val blackClearDrawable =
-        ResourcesCompat.getDrawable(resources, R.drawable.ic_eye_open, null) as Drawable
-    private val opaqueClearDrawable =
-        ResourcesCompat.getDrawable(resources, R.drawable.ic_eye_close, null) as Drawable
+    private val eyeOpenDrawable =
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_eye_24, null) as Drawable
+    private val eyeCloseDrawable =
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_ueye_24, null) as Drawable
 
-    private var clearButtonImage: Drawable = opaqueClearDrawable
+    private var eyeButtonImage: Drawable = eyeCloseDrawable
 
-    private fun showClearButton() {
-        setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, clearButtonImage, null)
+    private fun eyeDrawableButton() {
+        setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, eyeButtonImage, null)
     }
+
 
     private fun hideClearButton() {
         setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
@@ -51,13 +58,13 @@ class EyeEditText:AppCompatEditText {
     }
 
     override fun onTextChanged(
-        text: CharSequence?,
-        start: Int,
-        lengthBefore: Int,
-        lengthAfter: Int
+            text: CharSequence?,
+            start: Int,
+            lengthBefore: Int,
+            lengthAfter: Int
     ) {
         if (text?.isNotEmpty() == true) {
-            showClearButton()
+            eyeDrawableButton()
         } else {
             hideClearButton()
         }
@@ -72,12 +79,12 @@ class EyeEditText:AppCompatEditText {
 
         return if (isClearButtonAtTheStart) {
 
-            val clearButtonEnd = paddingStart + clearButtonImage.intrinsicWidth
+            val clearButtonEnd = paddingStart + eyeButtonImage.intrinsicWidth
             event.x < clearButtonEnd
 
         } else {
 
-            val clearButtonStart = width - clearButtonImage.intrinsicWidth - paddingEnd
+            val clearButtonStart = width - eyeButtonImage.intrinsicWidth - paddingEnd
             event.x > clearButtonStart
 
         }
@@ -85,14 +92,18 @@ class EyeEditText:AppCompatEditText {
 
     private fun onClearButtonTouched(event: MotionEvent) {
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                clearButtonImage = blackClearDrawable
-                showClearButton()
-            }
             MotionEvent.ACTION_UP -> {
-                clearButtonImage = opaqueClearDrawable
-                text?.clear()
-                hideClearButton()
+                if(isOpen) {
+                    eyeButtonImage = eyeOpenDrawable
+                    this.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    this.isOpen = false
+                } else {
+                    eyeButtonImage = eyeCloseDrawable
+                    this.transformationMethod = PasswordTransformationMethod.getInstance()
+                    this.isOpen = true
+                }
+                this.setSelection(this.text.toString().length)
+                eyeDrawableButton()
                 listener?.onClearClick()
             }
         }

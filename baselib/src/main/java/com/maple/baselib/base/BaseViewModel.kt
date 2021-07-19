@@ -10,6 +10,7 @@ import com.maple.baselib.http.error.ResponseThrowable
 import com.maple.baselib.http.resp.BaseResp
 import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.NetworkUtil
+import com.maple.baselib.utils.UIUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,6 +18,12 @@ import kotlinx.coroutines.flow.flow
 open class BaseViewModel: ViewModel(), LifecycleObserver {
 
     val defUI: UIChange by lazy { UIChange() }
+
+    fun onClickProxy(m: () -> Unit) {
+        if (!UIUtils.isFastClick()) {
+            m()
+        }
+    }
 
     /**
      * 所有网络请求都在 viewModelScope 域中启动，当页面销毁时会自动
@@ -76,7 +83,7 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
      * @param complete  完成回调（无论成功失败都会调用）
      * @param isShowDialog 是否显示加载框
      */
-    fun <T> launchOnlyresult(
+    fun <T> launchOnlyResult(
             block: suspend CoroutineScope.() -> BaseResp<T>,
             success: (T?) -> Unit,
             error: (ResponseThrowable) -> Unit = {
