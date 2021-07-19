@@ -4,7 +4,7 @@ import com.maple.baselib.http.resp.BaseResp;
 
 import java.util.Date;
 
-public class LoginEntity {
+public class LoginEntity{
 
     private String current;
     private String size;
