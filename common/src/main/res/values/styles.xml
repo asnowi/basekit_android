@@ -47,6 +47,14 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="common_style_menu_active">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="common_style_menu_inactive">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 
     <style name="common_style_account">
         <item name="android:layout_height">42dp</item>

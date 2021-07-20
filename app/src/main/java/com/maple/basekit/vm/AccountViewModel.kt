@@ -4,6 +4,7 @@ import android.text.TextUtils
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.SPUtils
 import com.maple.basekit.model.repository.CommonRepository
+import com.maple.baselib.app.manager.SingleLiveEvent
 import com.maple.baselib.base.BaseViewModel
 import com.maple.baselib.utils.LogUtils
 import com.maple.common.utils.ToastUtils
@@ -15,9 +16,12 @@ class AccountViewModel: BaseViewModel(){
 
 
     val account: ObservableField<String> = ObservableField("13717591366")
-    val password: ObservableField<String> = ObservableField("096719")
+    val password: ObservableField<String> = ObservableField("0967191")
 
     val loginState: ObservableField<Boolean> = ObservableField(false)
+
+    val forgotPwdEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+
 
     fun onLogin() {
         onClickProxy {
@@ -30,6 +34,10 @@ class AccountViewModel: BaseViewModel(){
             }
             login(phone!!,pwd!!)
         }
+    }
+
+    fun onForgotPassword () {
+        forgotPwdEvent.call()
     }
 
 
@@ -47,7 +55,9 @@ class AccountViewModel: BaseViewModel(){
             repository.loginPhone(params)
         }, success = {
             it?.let { data ->
-                LogUtils.logGGQ("---登录--success--->>${data.name}")
+                LogUtils.logGGQ("---登录--success--->>1-${data.toString()}")
+            }?:let {
+                LogUtils.logGGQ("---登录--success--->>2")
             }
         }, error = {
             LogUtils.logGGQ("---登录---error-->>${it.errMsg}")
@@ -55,6 +65,7 @@ class AccountViewModel: BaseViewModel(){
             LogUtils.logGGQ("---登录---complete--")
         })
     }
+
 
 
 }

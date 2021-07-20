@@ -1,7 +1,7 @@
 package com.maple.basekit.model.repository
 
 import com.maple.basekit.model.RetrofitClient
-import com.maple.basekit.utils.HttpParamsUtils
+import com.maple.basekit.utils.HttpRequestUtils
 import com.maple.baselib.base.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,7 +13,7 @@ class CommonRepository: BaseRepository(){
 
 
     override fun getPublicParams(): WeakHashMap<String, Any> {
-        return HttpParamsUtils.requestParams()
+        return HttpRequestUtils.requestParams()
     }
 
     suspend fun loginPhone(params: WeakHashMap<String, Any>) = withContext(Dispatchers.IO) {

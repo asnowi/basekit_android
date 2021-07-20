@@ -14,6 +14,7 @@ import com.maple.baselib.utils.UIUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.Exception
 
 open class BaseViewModel: ViewModel(), LifecycleObserver {
 
@@ -29,7 +30,7 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
      * 所有网络请求都在 viewModelScope 域中启动，当页面销毁时会自动
      * 调用ViewModel的  #onCleared 方法取消所有协程
      */
-    fun launchUI(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch { block() }
+    private fun launchUI(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch { block() }
 
     /**
      * 用流的方式进行网络请求
@@ -100,24 +101,39 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
         if (isShowDialog) defUI.onShowDialog()
         launchUI {
             handleException(
-                    {
-                        withContext(Dispatchers.IO) {
-                            block().let {
-                                if (ResultCode.isSuccess(it.code)) {
-                                    it.data
-                                } else throw ResponseThrowable(it.code, it.msg)
-                            }
-                        }.also { success(it) }
+                    { withContext(Dispatchers.IO) { block() } },
+                    { res ->
+                        executeResponse(res) {
+                            success(it)
+                        }
                     },
-                    { error(it) },
                     {
+                        error(it)
+                    },
+                    {
+                        if (isShowDialog) defUI.onShowDialog()
                         complete()
-                        defUI.onDismissDialog()
                     }
             )
         }
     }
 
+
+    /**
+     * 请求结果过滤
+     */
+    private suspend fun <T> executeResponse(
+            response: BaseResp<T>,
+            success: suspend CoroutineScope.(T?) -> Unit
+    ) {
+        coroutineScope {
+            if (ResultCode.isSuccess(response.code)) {
+                success(response.data)
+            } else {
+                throw ResponseThrowable(response.code, response.msg)
+            }
+        }
+    }
 
     /**
      * 异常统一处理
@@ -138,6 +154,38 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
             }
         }
     }
+
+
+    /**
+     * 异常统一处理
+     */
+    private suspend fun <T> handleException(
+            block: suspend CoroutineScope.() -> BaseResp<T>,
+            success: suspend CoroutineScope.(BaseResp<T>) -> Unit,
+            error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
+            complete: suspend CoroutineScope.() -> Unit
+    ) {
+        try {
+            coroutineScope {
+                try {
+                    success(block())
+                    LogUtils.logGGQ("-->>-T-T-<<")
+                } catch (e: ResponseThrowable) {
+                    error(ExceptionHandle.handleException(e, e))
+                } finally {
+                    complete()
+                }
+            }
+        } catch (e: ResponseThrowable) {
+            e.fillInStackTrace()
+            LogUtils.logGGQ("异常--e->${e.message}")
+            error(ExceptionHandle.handleException(e, e))
+        }
+    }
+
+
+
+
 
     /**
      * UI事件

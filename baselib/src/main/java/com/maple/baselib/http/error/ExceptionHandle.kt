@@ -11,7 +11,7 @@ import java.net.ConnectException
 object ExceptionHandle {
 
     fun handleException(e: Throwable,fail:ResponseThrowable?): ResponseThrowable {
-        var ex: ResponseThrowable = ResponseThrowable(ERROR.UNKNOWN)
+        var ex = ResponseThrowable(ERROR.UNKNOWN)
         if (e is ResponseThrowable) {
             ex = e
         } else if (e is HttpException) {

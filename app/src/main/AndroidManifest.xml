@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maple.basekit">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.MyApplication"
@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/CommonNoTitleBarTheme">
+        <activity android:name=".ui.activity.HomeActivity"></activity>
         <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
@@ -22,15 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CommonFullscreenTheme" />
-
-        <activity android:name=".ui.activity.AccountActivity"
+        <activity
+            android:name=".ui.activity.AccountActivity"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

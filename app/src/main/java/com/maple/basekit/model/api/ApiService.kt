@@ -12,6 +12,6 @@ interface ApiService {
 
     @Headers("${Global.DOMAIN}:${Global.URL_HYNTECH}")
     @POST(ApiURL.URL_USER_LOGIN)
-    suspend fun loginPhone(@Body requestBody: RequestBody): BaseResp<LoginEntity>
+    suspend fun loginPhone(@Body requestBody: RequestBody): LoginEntity
 
 }
