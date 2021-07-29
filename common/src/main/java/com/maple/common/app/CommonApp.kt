@@ -1,6 +1,7 @@
 package com.maple.common.app
 
 import com.maple.baselib.app.BaseApp
+import com.tencent.mmkv.MMKV
 
 abstract class CommonApp: BaseApp() {
 
@@ -13,7 +14,7 @@ abstract class CommonApp: BaseApp() {
 
     override fun initApp() {
         super.initApp()
-
+        MMKV.initialize(this)
     }
 
 }

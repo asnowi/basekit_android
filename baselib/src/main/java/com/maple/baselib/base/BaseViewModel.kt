@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maple.baselib.app.ResultCode
+import com.maple.baselib.app.manager.SingleLiveEvent
 import com.maple.baselib.http.error.ERROR
 import com.maple.baselib.http.error.ExceptionHandle
 import com.maple.baselib.http.error.ResponseThrowable
@@ -50,13 +51,15 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
      * @param isShowDialog 是否显示加载框
      */
     fun launchGo(
+            isShowDialog: Boolean = true,
+            isShowToast: Boolean = true,
             block: suspend CoroutineScope.() -> Unit,
             error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+                LogUtils.logGGQ("--isShowToast-->${isShowToast}")
+                LogUtils.logGGQ("--error-->${it.errMsg}")
                 if(isShowToast) defUI.onError(it)
             },
-            complete: suspend CoroutineScope.() -> Unit = {},
-            isShowDialog: Boolean = true,
-            isShowToast: Boolean = true
+            complete: suspend CoroutineScope.() -> Unit = {}
     ) {
         if (!NetworkUtil.isConnected()) {
             defUI.onError(ResponseThrowable(ERROR.NETWORD_UNCONNECTED))
@@ -85,14 +88,16 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
      * @param isShowDialog 是否显示加载框
      */
     fun <T> launchOnlyResult(
+            isShowDialog: Boolean = true,
+            isShowToast: Boolean = true,
             block: suspend CoroutineScope.() -> BaseResp<T>,
             success: (T?) -> Unit,
             error: (ResponseThrowable) -> Unit = {
+                LogUtils.logGGQ("--isShowToast--->${isShowToast}")
+                LogUtils.logGGQ("--error--->${it.errMsg}")
                 if(isShowToast) defUI.onError(it)
             },
-            complete: () -> Unit = {},
-            isShowDialog: Boolean = true,
-            isShowToast: Boolean = true
+            complete: () -> Unit = {}
     ) {
         if (!NetworkUtil.isConnected()) {
             defUI.onError(ResponseThrowable(ERROR.NETWORD_UNCONNECTED))
@@ -111,7 +116,7 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
                         error(it)
                     },
                     {
-                        if (isShowDialog) defUI.onShowDialog()
+                        if (isShowDialog) defUI.onDismissDialog()
                         complete()
                     }
             )
@@ -192,12 +197,21 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
      */
     inner class UIChange{
 
+        val toastEvent by lazy { SingleLiveEvent<String>() }
         fun onError(e: ResponseThrowable) {
             LogUtils.logGGQ(e.errMsg)
+            toastEvent.postValue(e.errMsg)
         }
 
-        fun onShowDialog() {}
-        fun onDismissDialog () {}
+        val showDialog by lazy { SingleLiveEvent<Any>() }
+        fun onShowDialog() {
+            showDialog.call()
+        }
+
+        val dismissDialog by lazy { SingleLiveEvent<Any>() }
+        fun onDismissDialog () {
+            dismissDialog.call()
+        }
     }
 
 

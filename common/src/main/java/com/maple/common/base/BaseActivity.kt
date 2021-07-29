@@ -1,6 +1,9 @@
 package com.maple.common.base
 
 import com.maple.common.utils.ToastUtils
+import com.maple.common.widget.dialog.LoadingDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import com.maple.baselib.base.BaseActivity as B
 
 /***
@@ -21,4 +24,30 @@ abstract class BaseActivity: B(){
     open fun showToast(s: String?) {
         ToastUtils.showToast(s)
     }
+
+
+    private var loadingDialog: LoadingDialog? = null
+
+    /// 展示 loading
+    open fun showLoading() {
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog(this)
+        }
+        loadingDialog?.run {
+            if(!this.isShowing)  this.show()
+        }
+    }
+
+    /// 关闭 loading
+    open fun dismissLoading() {
+        loadingDialog?.run {
+            if (isShowing) {
+                runBlocking {
+                    delay(500L)
+                }
+                dismiss()
+            }
+        }
+    }
+
 }

@@ -25,6 +25,19 @@
         <item name="android:windowActivityTransitions">true</item>
     </style>
 
+    <style name="CommonDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/common_trans</item>
+    </style>
+
+    <style name="common_avloading">
+        <item name="minWidth">22dip</item>
+        <item name="maxWidth">22dip</item>
+        <item name="minHeight">22dip</item>
+        <item name="maxHeight">22dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
     <style name="common_style_toolbar">
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:layout_width">match_parent</item>
