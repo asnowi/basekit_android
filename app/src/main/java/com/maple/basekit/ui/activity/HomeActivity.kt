@@ -12,6 +12,8 @@ import com.maple.common.common.MyFragmentStateAdapter
 
 class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
+    private var lastBackPressedMillis: Long = 0
+
     private val viewModel by viewModels<HomeViewModel>()
 
     private val list by lazy { listOf(
@@ -48,6 +50,20 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
             }
             false
         }
+    }
+
+    override fun hasEventKeyBack(): Boolean = true
+
+
+    override fun onKeyBack(keyCode: Int) {
+        if (lastBackPressedMillis + 2000L > System.currentTimeMillis()) {
+            //moveTaskToBack(true)
+            this@HomeActivity.finish()
+        } else {
+            lastBackPressedMillis = System.currentTimeMillis()
+            showToast("再按一次退出程序")
+        }
+        super.onKeyBack(keyCode)
     }
 
 }

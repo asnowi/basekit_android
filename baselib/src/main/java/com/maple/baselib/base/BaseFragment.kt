@@ -1,10 +1,12 @@
 package com.maple.baselib.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.maple.baselib.R
 import com.maple.baselib.utils.LogUtils
 
 abstract class BaseFragment: Fragment(), IView{
@@ -14,6 +16,12 @@ abstract class BaseFragment: Fragment(), IView{
     abstract fun initData(savedInstanceState: Bundle?): Unit
 
     open fun initView(view: View, savedInstanceState: Bundle?){}
+
+    /// 是否使用透明状态栏
+    open fun hasStatusBarMode(): Boolean = false
+
+    /// 默认透明状态栏
+    open fun setStatusBarMode(color: Int = android.R.color.transparent) {}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +42,9 @@ abstract class BaseFragment: Fragment(), IView{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        if (hasStatusBarMode()) {
+//            setStatusBarMode()
+//        }
         this.initView(view, savedInstanceState)
         this.initData(savedInstanceState)
     }

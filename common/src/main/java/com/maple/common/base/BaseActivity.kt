@@ -1,5 +1,6 @@
 package com.maple.common.base
 
+import com.gyf.immersionbar.ktx.immersionBar
 import com.maple.common.utils.ToastUtils
 import com.maple.common.widget.dialog.LoadingDialog
 import kotlinx.coroutines.delay
@@ -22,7 +23,8 @@ abstract class BaseActivity: B(){
      * @param s 显示内容
      */
     open fun showToast(s: String?) {
-        ToastUtils.showToast(s)
+//        ToastUtils.showToast(s)
+        ToastUtils.showSnackbar(this, s)
     }
 
 
@@ -48,6 +50,10 @@ abstract class BaseActivity: B(){
                 dismiss()
             }
         }
+    }
+
+    override fun setStatusBarMode(color: Int) {
+        super.setStatusBarMode(color)
     }
 
 }

@@ -1,22 +1,29 @@
 package com.maple.basekit.ui.fragment
 
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
+import com.gyf.immersionbar.ImmersionBar
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentLoginBinding
 import com.maple.basekit.ui.activity.HomeActivity
 import com.maple.basekit.vm.AccountViewModel
-import com.maple.baselib.utils.LogUtils
 import com.maple.common.base.BaseActivity
 import com.maple.common.base.BaseViewFragment
 import com.maple.common.ext.afterTextChanged
 import com.maple.common.utils.StringUtils
-import com.maple.common.widget.view.EyeEditText
 
-class LoginFragment: BaseViewFragment<FragmentLoginBinding, AccountViewModel>() {
+class LoginFragment : BaseViewFragment<FragmentLoginBinding, AccountViewModel>() {
+
+    override fun hasStatusBarMode(): Boolean = true
+    override fun setStatusBarMode(color: Int) {
+        // super.setStatusBarMode(color)
+        ImmersionBar.with(this)
+                .transparentStatusBar()
+                .statusBarDarkFont(true)
+                .navigationBarColor(R.color.common_white)
+                .navigationBarDarkIcon(true)
+                .init()
+    }
 
     private val viewModel by viewModels<AccountViewModel>()
 
@@ -45,6 +52,7 @@ class LoginFragment: BaseViewFragment<FragmentLoginBinding, AccountViewModel>() 
             viewModel.account.set(it)
             viewModel.loginState.set(StringUtils.isNotEmpty(viewModel.account.get()) && StringUtils.isNotEmpty(viewModel.password.get()))
         }
+
         this.binding.etPassword.afterTextChanged {
             viewModel.password.set(it)
             viewModel.loginState.set(StringUtils.isNotEmpty(viewModel.account.get()) && StringUtils.isNotEmpty(viewModel.password.get()))

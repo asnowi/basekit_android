@@ -8,6 +8,11 @@ import com.maple.common.base.BaseViewFragment
 
 class MainFragment(val viewModel: HomeViewModel): BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
 
+    override fun hasStatusBarMode(): Boolean = true
+    override fun setStatusBarMode(color: Int) {
+        super.setStatusBarMode(color)
+    }
+
     companion object {
         @JvmStatic
         fun getInstance(viewModel: HomeViewModel): MainFragment {
