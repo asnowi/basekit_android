@@ -12,6 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.maple.baselib.base.BaseViewModel
 import com.maple.common.R
+import com.maple.common.widget.state.showEmpty
+import com.maple.common.widget.state.showError
+import com.maple.common.widget.state.showLoading
+import com.maple.common.widget.state.showSuccess
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.bindMultiState
 import kotlinx.coroutines.CoroutineScope
@@ -20,8 +24,13 @@ import kotlinx.coroutines.cancel
 
 abstract class BaseViewFragment<VB : ViewDataBinding, VM : BaseViewModel>: com.maple.common.base.BaseFragment(), CoroutineScope by MainScope() {
 
-
-    protected var multiState: MultiStateContainer? = null
+    /**
+     * 多状态视图
+     * 如果使用多状态视图,子类必须重写 hasUsedStateView 并返回 true,即可调用 onStateXXX() 等方法
+     * 标题栏 不属于多状态视图内的View,布局文件中需要有一个id为 common_container 作为 切换的视图主体
+     * 否则为整个 contentView
+     */
+    private var multiState: MultiStateContainer? = null
 
     inline fun <reified VM : ViewModel> viewModels(): Lazy<VM> {
         return lazy {
@@ -78,6 +87,23 @@ abstract class BaseViewFragment<VB : ViewDataBinding, VM : BaseViewModel>: com.m
         }
     }
 
+    open fun onStateLoading(){
+        if(hasUsedStateView())multiState?.showLoading()
+    }
+
+    open fun onStateEmpty(){
+        if(hasUsedStateView())multiState?.showEmpty()
+    }
+
+    open fun onStateError(){
+        if(hasUsedStateView())multiState?.showError()
+    }
+
+    open fun onStateSuccess(){
+        if(hasUsedStateView())multiState?.showSuccess()
+    }
+
+    open fun onStateRetry(container: MultiStateContainer?){}
 
     override fun onDestroy() {
         super.onDestroy()

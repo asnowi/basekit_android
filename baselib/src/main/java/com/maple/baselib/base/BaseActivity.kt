@@ -82,6 +82,13 @@ abstract class BaseActivity: AppCompatActivity(), IView {
         if (isFinish) this.finish()
     }
 
+    /***
+     * 关闭页面
+     */
+    open fun onFinish() {
+        this.finish()
+    }
+
     /// 回退
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (hasEventKeyBack()) {

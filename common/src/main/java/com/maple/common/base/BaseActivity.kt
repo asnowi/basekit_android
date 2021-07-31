@@ -10,6 +10,11 @@ import com.maple.common.ext.toGone
 import com.maple.common.ext.toVisible
 import com.maple.common.utils.ToastUtils
 import com.maple.common.widget.dialog.LoadingDialog
+import com.maple.common.widget.state.showEmpty
+import com.maple.common.widget.state.showError
+import com.maple.common.widget.state.showLoading
+import com.maple.common.widget.state.showSuccess
+import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.bindMultiState
 import kotlinx.android.synthetic.main.include_title.*
 import kotlinx.coroutines.delay
@@ -28,6 +33,12 @@ abstract class BaseActivity: B(){
      */
     open fun hasUsedStateView(): Boolean = false
 
+    /**
+     * 多状态视图
+     * 如果使用多状态视图,子类必须重写 hasUsedStateView 并返回 true,即可调用 onStateXXX() 等方法
+     * 标题栏 不属于多状态视图内的View,布局文件中需要有一个id为 common_container 作为 切换的视图主体
+     * 否则为整个 contentView
+     */
     private val multiState by lazy {
         if(hasUsedStateView()){
             this.findViewById<View>(R.id.common_container)?.bindMultiState() ?: this.bindMultiState()
@@ -77,6 +88,40 @@ abstract class BaseActivity: B(){
             .navigationBarDarkIcon(true)
             .init()
     }
+
+    /***
+     * 多状态布局 加载页面
+     */
+    open fun onStateLoading() {
+        if(hasUsedStateView())multiState?.showLoading()
+    }
+
+    /***
+     * 多状态布局 空页面
+     */
+    open fun onStateEmpty() {
+        if(hasUsedStateView())multiState?.showEmpty()
+    }
+
+    /***
+     * 多状态布局 错误页面
+     */
+    open fun onStateError() {
+        if(hasUsedStateView())multiState?.showError()
+    }
+
+    /***
+     * 多状态布局 内容页面
+     */
+    open fun onStateSuccess() {
+        if(hasUsedStateView()) multiState?.showSuccess()
+    }
+
+    /***
+     * 多状态布局 错误页面的 重试
+     */
+    open fun onStateRetry(container: MultiStateContainer?) {}
+
 
     //-------------titleBar--------------------
     /**
