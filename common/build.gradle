@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
 }
@@ -70,7 +71,6 @@ dependencies {
     api 'androidx.multidex:multidex:2.0.1'
     /// 屏幕适配
     api 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
-
     /// 多状态视图
     api 'com.github.Zhao-Yan-Yan:MultiStatePage:2.0.2'
     /// loading

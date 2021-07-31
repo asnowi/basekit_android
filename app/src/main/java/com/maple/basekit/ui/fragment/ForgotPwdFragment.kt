@@ -4,9 +4,16 @@ import android.os.Bundle
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentForgotPwdBinding
 import com.maple.basekit.vm.AccountViewModel
+import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewFragment
 
 class ForgotPwdFragment : BaseViewFragment<FragmentForgotPwdBinding, AccountViewModel>() {
+
+    override fun hasStatusBarMode(): Boolean = true
+
+    override fun setStatusBarMode(color: Int) {
+        super.setStatusBarMode(color)
+    }
 
     private val viewModel by viewModels<AccountViewModel>()
 
@@ -20,7 +27,7 @@ class ForgotPwdFragment : BaseViewFragment<FragmentForgotPwdBinding, AccountView
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
+        setTitle<ForgotPwdFragment>("找回密码").onBack<ForgotPwdFragment> { onPopBack() }.setTitleBarBackground<ForgotPwdFragment>(UIUtils.getColor(R.color.common_white))
     }
 
 }
