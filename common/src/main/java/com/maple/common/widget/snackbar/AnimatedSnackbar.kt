@@ -105,8 +105,8 @@ class AnimatedSnackbar(context: Context, attrs : AttributeSet? = null) : LinearL
     private val activity: Activity? = (context as? Activity)
 
     init {
-//        val view: View = inflate(context, R.layout.snackbar_view_full, this)
-        val view: View = inflate(context, R.layout.snackbar_view_shape, this)
+        val view: View = inflate(context, R.layout.snackbar_view_full, this)
+//        val view: View = inflate(context, R.layout.snackbar_view_shape, this)
         this.visibility = View.INVISIBLE
         parent_layout = view.findViewById(R.id.parent_layout)
         imageView = view.findViewById(R.id.imageView)

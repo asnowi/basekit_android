@@ -1,11 +1,16 @@
 package com.maple.common.base
 
+import android.view.View
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import com.gyf.immersionbar.ImmersionBar
 import com.maple.baselib.utils.UIUtils
+import com.maple.common.R
 import com.maple.common.ext.toGone
 import com.maple.common.ext.toVisible
 import com.maple.common.utils.ToastUtils
 import com.maple.common.widget.dialog.LoadingDialog
+import com.zy.multistatepage.bindMultiState
 import kotlinx.android.synthetic.main.include_title.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -22,6 +27,12 @@ abstract class BaseActivity: B(){
      * 是否使用多状态视图
      */
     open fun hasUsedStateView(): Boolean = false
+
+    private val multiState by lazy {
+        if(hasUsedStateView()){
+            this.findViewById<View>(R.id.common_container)?.bindMultiState() ?: this.bindMultiState()
+        }else{ null }
+    }
 
     /**
      * toast
@@ -59,7 +70,12 @@ abstract class BaseActivity: B(){
 
     override fun setStatusBarMode(color: Int) {
         super.setStatusBarMode(color)
-
+        ImmersionBar.with(this)
+            .transparentStatusBar()
+            .statusBarDarkFont(true)
+            .navigationBarColor(R.color.common_white)
+            .navigationBarDarkIcon(true)
+            .init()
     }
 
     //-------------titleBar--------------------
@@ -196,12 +212,31 @@ abstract class BaseActivity: B(){
 
     /**
      * 设置 titleBar 背景颜色
-     * @param color 颜色
+     * @param resId 颜色
      */
-    inline fun <reified T : BaseActivity> setTitleBarBackground(@ColorRes color: Int): T {
-        toolbar?.setBackgroundColor(color)
+    inline fun <reified T : BaseActivity> setTitleBarBackground(@ColorRes resId: Int): T {
+        toolbar?.setBackgroundColor(UIUtils.getColor(resId))
         return this as T
     }
+
+    /**
+     * 设置 左按钮背景
+     * @param resId 资源
+     */
+    inline fun <reified T : BaseActivity> setBackDrawable(@DrawableRes resId: Int): T {
+        ibtn_title_left?.background = UIUtils.getDrawable(resId)
+        return this as T
+    }
+
+    /**
+     * 设置 右按钮背景
+     * @param resId 资源
+     */
+    inline fun <reified T : BaseActivity> setSideDrawable(@DrawableRes resId: Int): T {
+        ibtn_title_right?.background = UIUtils.getDrawable(resId)
+        return this as T
+    }
+
     //------------end------------------
 
 }

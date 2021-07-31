@@ -27,7 +27,7 @@ class ForgotPwdFragment : BaseViewFragment<FragmentForgotPwdBinding, AccountView
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        setTitle<ForgotPwdFragment>("找回密码").onBack<ForgotPwdFragment> { onPopBack() }.setTitleBarBackground<ForgotPwdFragment>(UIUtils.getColor(R.color.common_white))
+        setTitle<ForgotPwdFragment>("找回密码").onBack<ForgotPwdFragment> { onPopBack() }.setTitleBarBackground<ForgotPwdFragment>(R.color.common_white)
     }
 
 }

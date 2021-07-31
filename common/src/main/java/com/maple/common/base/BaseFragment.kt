@@ -3,6 +3,7 @@ package com.maple.common.base
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.ImmersionOwner
 import com.gyf.immersionbar.components.ImmersionProxy
@@ -158,6 +159,16 @@ abstract class BaseFragment: B(), ImmersionOwner {
 
     inline fun <reified T : BaseFragment> setTitleBarBackground(@ColorRes color: Int): T {
         toolbar?.setBackgroundColor(color)
+        return this as T
+    }
+
+    inline fun <reified T : BaseFragment> setBackDrawable(@DrawableRes resId: Int): T {
+        ibtn_title_left?.background = UIUtils.getDrawable(resId)
+        return this as T
+    }
+
+    inline fun <reified T : BaseFragment> setSideDrawable(@DrawableRes resId: Int): T {
+        ibtn_title_right?.background = UIUtils.getDrawable(resId)
         return this as T
     }
 
