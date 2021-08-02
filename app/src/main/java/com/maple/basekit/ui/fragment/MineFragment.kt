@@ -12,7 +12,7 @@ class MineFragment(val viewModel: HomeViewModel) : BaseViewFragment<FragmentMine
     override fun hasStatusBarMode(): Boolean = true
 
     override fun setStatusBarMode(color: Int) {
-        super.setStatusBarMode(color)
+        super.setStatusBarMode(R.color.common_2)
     }
 
     companion object {

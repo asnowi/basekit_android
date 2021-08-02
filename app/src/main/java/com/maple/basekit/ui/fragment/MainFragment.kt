@@ -9,8 +9,9 @@ import com.maple.common.base.BaseViewFragment
 class MainFragment(val viewModel: HomeViewModel): BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
 
     override fun hasStatusBarMode(): Boolean = true
+
     override fun setStatusBarMode(color: Int) {
-        super.setStatusBarMode(color)
+        super.setStatusBarMode(R.color.common_1)
     }
 
     companion object {

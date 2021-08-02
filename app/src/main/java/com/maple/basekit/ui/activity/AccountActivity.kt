@@ -1,13 +1,15 @@
 package com.maple.basekit.ui.activity
 
 import android.os.Bundle
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.maple.basekit.R
-import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseActivity
 
 class AccountActivity : BaseActivity() {
+
+    override fun setContentLayout() {
+        super.setContentLayout()
+    }
 
     override fun getLayoutId(): Int = R.layout.activity_account
 

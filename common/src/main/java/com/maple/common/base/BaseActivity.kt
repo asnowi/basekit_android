@@ -84,6 +84,7 @@ abstract class BaseActivity: B(){
         ImmersionBar.with(this)
             .transparentStatusBar()
             .statusBarDarkFont(true)
+            .fitsSystemWindows(true)
             .navigationBarColor(R.color.common_white)
             .navigationBarDarkIcon(true)
             .init()

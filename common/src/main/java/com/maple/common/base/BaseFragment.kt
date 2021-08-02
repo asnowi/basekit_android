@@ -239,7 +239,7 @@ abstract class BaseFragment: B(), ImmersionOwner {
 
     override fun onVisible() {
         LogUtils.logGGQ("ImmersionBar------>>>onVisible")
-
+        if(hasStatusBarMode()) this.setStatusBarMode()
     }
 
 
@@ -251,8 +251,9 @@ abstract class BaseFragment: B(), ImmersionOwner {
     override fun setStatusBarMode(color: Int) {
         super.setStatusBarMode(color)
         ImmersionBar.with(this)
-            .transparentStatusBar()
+            .statusBarColor(color)
             .statusBarDarkFont(true)
+            .fitsSystemWindows(true)
             .navigationBarColor(R.color.common_white)
             .navigationBarDarkIcon(true)
             .init()

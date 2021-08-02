@@ -12,6 +12,11 @@ import com.maple.common.common.MyFragmentStateAdapter
 
 class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
+    override fun hasStatusBarMode(): Boolean = true
+    override fun setStatusBarMode(color: Int) {
+        super.setStatusBarMode(color)
+    }
+
     private var lastBackPressedMillis: Long = 0
 
     private val viewModel by viewModels<HomeViewModel>()

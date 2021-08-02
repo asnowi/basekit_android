@@ -21,7 +21,7 @@ abstract class BaseFragment: Fragment(), IView{
     open fun hasStatusBarMode(): Boolean = false
 
     /// 默认透明状态栏
-    open fun setStatusBarMode(color: Int = android.R.color.transparent) {}
+    open fun setStatusBarMode(color: Int = android.R.color.white) {}
 
     override fun onCreateView(
         inflater: LayoutInflater,

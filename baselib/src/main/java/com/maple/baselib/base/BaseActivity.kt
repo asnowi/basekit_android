@@ -35,7 +35,7 @@ abstract class BaseActivity: AppCompatActivity(), IView {
     open fun initView(savedInstanceState: Bundle?) {}
 
     /// 默认透明状态栏
-    open fun setStatusBarMode(color: Int = android.R.color.transparent) {}
+    open fun setStatusBarMode(color: Int = android.R.color.white) {}
 
     /// 回退事件
     open fun onKeyBack(keyCode: Int) {}
