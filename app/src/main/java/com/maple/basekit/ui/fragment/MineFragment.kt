@@ -4,16 +4,9 @@ import android.os.Bundle
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMineBinding
 import com.maple.basekit.vm.HomeViewModel
-import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewFragment
 
 class MineFragment(val viewModel: HomeViewModel) : BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
-
-    override fun hasStatusBarMode(): Boolean = true
-
-    override fun setStatusBarMode(color: Int) {
-        super.setStatusBarMode(R.color.common_2)
-    }
 
     companion object {
         @JvmStatic

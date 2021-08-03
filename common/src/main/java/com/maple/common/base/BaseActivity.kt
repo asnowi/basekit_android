@@ -94,21 +94,21 @@ abstract class BaseActivity: B(){
      * 多状态布局 加载页面
      */
     open fun onStateLoading() {
-        if(hasUsedStateView())multiState?.showLoading()
+        if(hasUsedStateView()) multiState?.showLoading()
     }
 
     /***
      * 多状态布局 空页面
      */
     open fun onStateEmpty() {
-        if(hasUsedStateView())multiState?.showEmpty()
+        if(hasUsedStateView()) multiState?.showEmpty()
     }
 
     /***
      * 多状态布局 错误页面
      */
     open fun onStateError() {
-        if(hasUsedStateView())multiState?.showError()
+        if(hasUsedStateView()) multiState?.showError()
     }
 
     /***

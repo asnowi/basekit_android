@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.core.view.isVisible
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.ImmersionOwner
 import com.gyf.immersionbar.components.ImmersionProxy
@@ -18,6 +19,7 @@ import com.maple.common.widget.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.include_title.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.anko.textColor
 import com.maple.baselib.base.BaseFragment as B
 
 
@@ -158,7 +160,7 @@ abstract class BaseFragment: B(), ImmersionOwner {
     }
 
     inline fun <reified T : BaseFragment> setTitleBarBackground(@ColorRes color: Int): T {
-        toolbar?.setBackgroundColor(color)
+        toolbar?.setBackgroundColor(UIUtils.getColor(color))
         return this as T
     }
 
@@ -172,6 +174,17 @@ abstract class BaseFragment: B(), ImmersionOwner {
         return this as T
     }
 
+
+    inline fun <reified T : BaseFragment> setTxtColor(@ColorRes color: Int): T {
+        tv_title_center?.setTextColor(UIUtils.getColor(color))
+        tv_title_left?.let {
+            if(it.isVisible) it.textColor = UIUtils.getColor(color)
+        }
+        tv_title_right?.let {
+            if(it.isVisible) it.textColor = UIUtils.getColor(color)
+        }
+        return this as T
+    }
     //------------end------------------
 
     @Suppress("DEPRECATION")

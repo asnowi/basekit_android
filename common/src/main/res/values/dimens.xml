@@ -5,9 +5,9 @@
 
     <dimen name="common_font_text">14sp</dimen>
 
-    <dimen name="common_font_title">18sp</dimen>
+    <dimen name="common_font_title">16sp</dimen>
 
-    <dimen name="common_toolbar">50dp</dimen>
+    <dimen name="common_toolbar">48dp</dimen>
 
     <dimen name="common_line">0.5dp</dimen>
 
