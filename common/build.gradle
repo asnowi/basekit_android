@@ -27,7 +27,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-        multiDexEnabled true
+//        multiDexEnabled true
     }
 
     buildTypes {
@@ -78,14 +78,18 @@ dependencies {
     /// 存储
     api 'com.tencent:mmkv-static:1.2.9'
     /// 状态栏
-    // api 'com.zackratos.ultimatebarx:ultimatebarx:0.6.0'
+    api 'com.zackratos.ultimatebarx:ultimatebarx:0.6.0'
+
     // api 'com.gitee.baijuncheng-open-source:StatusBarUtil:1.0.0'
     // 基础依赖包，必须要依赖
-    api 'com.gyf.immersionbar:immersionbar:3.0.0'
+    // api 'com.gyf.immersionbar:immersionbar:3.0.0'
     // fragment快速实现（可选）
-    api 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+    // api 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     // kotlin扩展（可选）
-    api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
+    // api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
+
+//    api 'com.github.liangjingkanji:StatusBar:1.1.1'
+//    api 'com.jaeger.statusbarutil:library:1.5.1'
 
     /// navigation
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"

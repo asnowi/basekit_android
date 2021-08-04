@@ -14,12 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/common_background"
         tools:context=".ui.fragment.MainFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="main" />
+        <include layout="@layout/include_title"/>
 
     </LinearLayout>
 </layout>

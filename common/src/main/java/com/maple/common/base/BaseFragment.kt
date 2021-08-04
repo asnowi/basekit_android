@@ -1,21 +1,16 @@
 package com.maple.common.base
 
-import android.content.res.Configuration
-import android.os.Bundle
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
-import com.gyf.immersionbar.ImmersionBar
-import com.gyf.immersionbar.components.ImmersionOwner
-import com.gyf.immersionbar.components.ImmersionProxy
-import com.gyf.immersionbar.ktx.immersionBar
-import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.UIUtils
-import com.maple.common.R
 import com.maple.common.ext.toGone
 import com.maple.common.ext.toVisible
 import com.maple.common.utils.ToastUtils
 import com.maple.common.widget.dialog.LoadingDialog
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import kotlinx.android.synthetic.main.include_title.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -23,12 +18,7 @@ import org.jetbrains.anko.textColor
 import com.maple.baselib.base.BaseFragment as B
 
 
-abstract class BaseFragment: B(), ImmersionOwner {
-
-    /**
-     * ImmersionBar代理类
-     */
-    private val immersionProxy: ImmersionProxy by lazy { ImmersionProxy(this) }
+abstract class BaseFragment: B() {
 
     /**
      * toast
@@ -187,88 +177,27 @@ abstract class BaseFragment: B(), ImmersionOwner {
     }
     //------------end------------------
 
-    @Suppress("DEPRECATION")
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        immersionProxy.setUserVisibleHint(isVisibleToUser)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        immersionProxy.onCreate(savedInstanceState)
-    }
-
-    @Suppress("DEPRECATION")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        immersionProxy.onActivityCreated(savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        immersionProxy.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        immersionProxy.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        immersionProxy.onDestroy()
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        immersionProxy.onHiddenChanged(hidden)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        immersionProxy.onConfigurationChanged(newConfig)
-    }
-
-
-
-    override fun onLazyAfterView() {
-        LogUtils.logGGQ("ImmersionBar------>>>onLazyAfterView")
-    }
-
-    override fun onInvisible() {
-        LogUtils.logGGQ("ImmersionBar------>>>onInvisible")
-
-    }
-
-    override fun onLazyBeforeView() {
-        LogUtils.logGGQ("ImmersionBar------>>>onLazyBeforeView")
-
-    }
-
-    override fun immersionBarEnabled(): Boolean {
-        LogUtils.logGGQ("ImmersionBar------>>>immersionBarEnabled")
-        return hasStatusBarMode()
-    }
-
-    override fun onVisible() {
-        LogUtils.logGGQ("ImmersionBar------>>>onVisible")
-        if(hasStatusBarMode()) this.setStatusBarMode()
-    }
-
-
-    override fun initImmersionBar() {
-        LogUtils.logGGQ("ImmersionBar------>>>initImmersionBar")
-        setStatusBarMode()
-    }
-
     override fun setStatusBarMode(color: Int) {
         super.setStatusBarMode(color)
-        ImmersionBar.with(this)
-            .statusBarColor(color)
-            .statusBarDarkFont(true)
-            .fitsSystemWindows(true)
-            .navigationBarColor(R.color.common_white)
-            .navigationBarDarkIcon(true)
-            .init()
+        UltimateBarX.with(this)
+            .color(color)
+            .light(true)
+            .applyStatusBar()
+
+
+//        val background = BarBackground.newInstance()    // 创建 background 对象
+//            // .color(color)                            // 状态栏/导航栏背景颜色（色值）
+//            .colorRes(color)                            // 状态栏/导航栏背景颜色（资源id）
+//        //  .drawableRes(R.drawable.bg_common)          // 状态栏/导航栏背景 drawable
+//        // 设置背景的方法三选一即可
+//
+//        val config = BarConfig.newInstance()            // 创建配置对象
+//            .fitWindow(true)                  // 布局是否侵入状态栏（true 不侵入，false 侵入）
+//            .background(background)                     // 设置 background 对象
+//            .light(false)
+//
+//        UltimateBarX.with(this)                  // 对当前 Activity 或 Fragment 生效
+//            .config(config)                               // 使用配置
+//            .applyStatusBar()
     }
 }

@@ -2,27 +2,27 @@ package com.maple.basekit.ui.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.gyf.immersionbar.ImmersionBar
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentLoginBinding
 import com.maple.basekit.ui.activity.HomeActivity
 import com.maple.basekit.vm.AccountViewModel
+import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseActivity
 import com.maple.common.base.BaseViewFragment
 import com.maple.common.ext.afterTextChanged
 import com.maple.common.utils.StringUtils
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 class LoginFragment : BaseViewFragment<FragmentLoginBinding, AccountViewModel>() {
 
     override fun hasStatusBarMode(): Boolean = true
     override fun setStatusBarMode(color: Int) {
         // super.setStatusBarMode(color)
-        ImmersionBar.with(this)
-                .transparentStatusBar()
-                .statusBarDarkFont(true)
-                .navigationBarColor(R.color.common_white)
-                .navigationBarDarkIcon(true)
-                .init()
+
+        UltimateBarX.with(this)
+            .transparent()
+            .light(true)
+            .applyStatusBar()
     }
 
     private val viewModel by viewModels<AccountViewModel>()

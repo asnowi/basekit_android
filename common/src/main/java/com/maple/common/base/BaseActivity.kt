@@ -1,9 +1,9 @@
 package com.maple.common.base
 
+import android.graphics.Color
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import com.gyf.immersionbar.ImmersionBar
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.R
 import com.maple.common.ext.toGone
@@ -14,6 +14,9 @@ import com.maple.common.widget.state.showEmpty
 import com.maple.common.widget.state.showError
 import com.maple.common.widget.state.showLoading
 import com.maple.common.widget.state.showSuccess
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.bindMultiState
 import kotlinx.android.synthetic.main.include_title.*
@@ -81,13 +84,25 @@ abstract class BaseActivity: B(){
 
     override fun setStatusBarMode(color: Int) {
         super.setStatusBarMode(color)
-        ImmersionBar.with(this)
-            .transparentStatusBar()
-            .statusBarDarkFont(true)
-            .fitsSystemWindows(true)
-            .navigationBarColor(R.color.common_white)
-            .navigationBarDarkIcon(true)
-            .init()
+        UltimateBarX.with(this)
+            .color(color)
+            .light(true)
+            .applyStatusBar()
+
+//        val background = BarBackground.newInstance()    // 创建 background 对象
+//           // .color(color)                   // 状态栏/导航栏背景颜色（色值）
+//            .colorRes(color)              // 状态栏/导航栏背景颜色（资源id）
+//          //  .drawableRes(R.drawable.bg_common)          // 状态栏/导航栏背景 drawable
+//        // 设置背景的方法三选一即可
+//
+//        val config = BarConfig.newInstance()            // 创建配置对象
+//            .fitWindow(true)                 // 布局是否侵入状态栏（true 不侵入，false 侵入）
+//            .background(background)                     // 设置 background 对象
+//            .light(false)
+//
+//        UltimateBarX.with(this)                         // 对当前 Activity 或 Fragment 生效
+//            .config(config)                             // 使用配置
+//            .applyStatusBar()                           // 应用到状态栏
     }
 
     /***

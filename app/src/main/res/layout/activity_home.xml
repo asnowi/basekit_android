@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/common_white"
-            app:elevation="2dp"
+            app:elevation="4dp"
             app:itemIconSize="22dp"
             app:itemTextAppearanceActive="@style/common_style_menu_active"
             app:itemTextAppearanceInactive="@style/common_style_menu_inactive"
