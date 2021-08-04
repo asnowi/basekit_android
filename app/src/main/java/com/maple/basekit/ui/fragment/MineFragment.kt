@@ -1,10 +1,13 @@
 package com.maple.basekit.ui.fragment
 
 import android.os.Bundle
+import com.google.android.material.appbar.AppBarLayout
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMineBinding
 import com.maple.basekit.vm.HomeViewModel
 import com.maple.common.base.BaseViewFragment
+import com.maple.common.ext.toGone
+import com.maple.common.ext.toVisible
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 class MineFragment(val viewModel: HomeViewModel) : BaseViewFragment<FragmentMineBinding, HomeViewModel>(){

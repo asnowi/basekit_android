@@ -8,6 +8,7 @@ import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
+import kotlin.jvm.Throws
 import kotlin.properties.Delegates
 
 /**
@@ -73,7 +74,6 @@ object SSLSocketClient {
 
     private val unSafeTrustManager: X509TrustManager = object : X509TrustManager {
         @Throws(CertificateException::class)
-
         @Suppress("TrustAllX509TrustManager")
         override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
 
