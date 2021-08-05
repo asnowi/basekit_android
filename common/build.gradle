@@ -96,6 +96,9 @@ dependencies {
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
+
+    api 'com.github.yyued:SVGAPlayer-Android:2.5.15'
+
 //    api('org.jetbrains.anko:anko:0.10.8') {
 //        exclude module: 'support-v4'
 //    }

@@ -11,6 +11,7 @@ import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewActivity
 import com.maple.common.common.MyFragmentStateAdapter
+import com.maple.common.widget.view.NavTabView
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
@@ -45,23 +46,38 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
         val adapter: MyFragmentStateAdapter = MyFragmentStateAdapter(this, list)
         binding.pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.pager.adapter = adapter
+        binding.pager.currentItem = 0
+        binding.navTab.setSelectedPosition(0, false)
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.bnav.menu.getItem(position).isChecked = true
+               // binding.bnav.menu.getItem(position).isChecked = true
             }
         })
-        binding.bnav.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId){
-                R.id.item_nav_main ->{
-                    binding.pager.currentItem = 0
-                }
-                R.id.item_nav_mine ->{
-                    binding.pager.currentItem = 1
-                }
+        binding.navTab.setOnTabSelectedListener(object :NavTabView.TabSelectedListener{
+            override fun onTabSelected(position: Int) {
+                binding.pager.currentItem = position
+                binding.navTab.setSelectedPosition(position, true)
             }
-            false
-        }
+
+            override fun onTabUnselected(position: Int) {
+            }
+
+            override fun onTabReselected(position: Int) {
+            }
+        })
+
+//        binding.bnav.setOnNavigationItemSelectedListener { item ->
+//            when(item.itemId){
+//                R.id.item_nav_main ->{
+//                    binding.pager.currentItem = 0
+//                }
+//                R.id.item_nav_mine ->{
+//                    binding.pager.currentItem = 1
+//                }
+//            }
+//            false
+//        }
     }
 
     override fun hasEventKeyBack(): Boolean = true

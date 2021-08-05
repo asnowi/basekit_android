@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ResourceName">
+
+    <RelativeLayout
+        android:id="@+id/rl_tab_main"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+
+        <com.opensource.svgaplayer.SVGAImageView
+            android:id="@+id/svg_tab_main"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            app:antiAlias="true"
+            app:autoPlay="false"
+            app:loopCount="1"
+            app:source="svga/tab_home_main.svga" />
+
+        <ImageView
+            android:id="@+id/iv_tab_main"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/selector_tab_main" />
+
+        <TextView
+            android:id="@+id/tv_tab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_tab_main"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/selector_menu_text"
+            android:textSize="14sp"
+            tools:text="首页"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_tab_mine"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+
+        <com.opensource.svgaplayer.SVGAImageView
+            android:id="@+id/svg_tab_mine"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            app:antiAlias="true"
+            app:autoPlay="false"
+            app:loopCount="1"
+            app:source="svga/tab_home_mine.svga" />
+
+        <ImageView
+            android:id="@+id/iv_tab_mine"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/selector_tab_mine" />
+
+        <TextView
+            android:id="@+id/tv_tab_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_tab_mine"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/selector_menu_text"
+            android:textSize="14sp"
+            tools:text="我的"
+            />
+
+    </RelativeLayout>
+</merge>
