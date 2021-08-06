@@ -11,8 +11,8 @@ import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewActivity
 import com.maple.common.common.MyFragmentStateAdapter
-import com.maple.common.widget.view.NavTabView
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import org.jetbrains.anko.onClick
 
 class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
@@ -47,25 +47,23 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
         binding.pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.pager.adapter = adapter
         binding.pager.currentItem = 0
-        binding.navTab.setSelectedPosition(0, false)
+         playLottieView(0, true)
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                // binding.bnav.menu.getItem(position).isChecked = true
+                playLottieView(position)
             }
         })
-        binding.navTab.setOnTabSelectedListener(object :NavTabView.TabSelectedListener{
-            override fun onTabSelected(position: Int) {
-                binding.pager.currentItem = position
-                binding.navTab.setSelectedPosition(position, true)
-            }
+        binding.llMain.onClick {
+            playLottieView(0)
+        }
 
-            override fun onTabUnselected(position: Int) {
-            }
+        binding.llMine.onClick {
+            playLottieView(1)
+        }
 
-            override fun onTabReselected(position: Int) {
-            }
-        })
+
 
 //        binding.bnav.setOnNavigationItemSelectedListener { item ->
 //            when(item.itemId){
@@ -78,6 +76,26 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 //            }
 //            false
 //        }
+    }
+
+    private fun playLottieView (position: Int, isFirst: Boolean = false) {
+        if(!isFirst && binding.pager.currentItem == position) return
+        binding.pager.currentItem = position
+        when (position) {
+            0 -> {
+                binding.lavMine.setImageResource(R.drawable.ic_tab_mine)
+                binding.lavMain.cancelAnimation()
+                binding.lavMain.setAnimation("lottie_tab_main.json")
+                binding.lavMain.playAnimation()
+            }
+
+            1 -> {
+                binding.lavMain.setImageResource(R.drawable.ic_tab_main)
+                binding.lavMine.cancelAnimation()
+                binding.lavMine.setAnimation("lottie_tab_mine.json")
+                binding.lavMine.playAnimation()
+            }
+        }
     }
 
     override fun hasEventKeyBack(): Boolean = true

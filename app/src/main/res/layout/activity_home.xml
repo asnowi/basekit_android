@@ -36,19 +36,88 @@
 <!--            app:labelVisibilityMode="labeled"-->
 <!--            app:menu="@menu/bottom_nav_menu" />-->
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/common_white">
+            android:layout_height="52dp"
+            android:background="@color/common_white"
+            android:orientation="vertical">
 
-            <View style="@style/common_style_line"/>
-
-            <com.maple.common.widget.view.NavTabView
-                android:id="@+id/nav_tab"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="56dp" />
+                android:layout_height="@dimen/common_line"
+                android:background="#F3F3F3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_main"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/lav_main"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_tab_main"
+                            />
+
+                        <ImageView
+                            android:id="@+id/iv_badge_main"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:adjustViewBounds="true"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/shape_red_dot"
+                            android:visibility="visible" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_mine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/lav_mine"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_tab_mine"
+                            />
+
+                        <ImageView
+                            android:id="@+id/iv_badge_mine"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:adjustViewBounds="true"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/shape_red_dot"
+                            android:visibility="visible" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>
