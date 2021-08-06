@@ -6,7 +6,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import com.maple.baselib.app.BaseApp
+import com.maple.baselib.utils.UIUtils
+import com.maple.baselib.widget.imageloader.ImageLoader
+import com.maple.baselib.widget.imageloader.TransType
+import com.maple.baselib.widget.imageloader.glide.GlideImageConfig
+import com.maple.common.R
 
 fun View.showKeyboard() {
     (BaseApp.instance.getSystemService(Service.INPUT_METHOD_SERVICE) as? InputMethodManager)
@@ -43,4 +49,30 @@ fun EditText.afterTextChanged(action: (String) -> Unit) {
             action(s.toString())
         }
     })
+}
+
+//常用图片加载
+fun ImageView.loadImage(any: Any) = ImageLoader.getInstance().loadImage(
+    BaseApp.instance,
+    GlideImageConfig(
+        any,
+        this,
+        placeholder = R.drawable.ic_default_placeholder,
+        errorPic = R.drawable.ic_default_errorpic
+    ).also { c -> c.type = TransType.NORMAL })
+
+//自定义配置图片加载
+fun ImageView.loadConfigImage(
+    any: Any,
+    config: GlideImageConfig = GlideImageConfig(
+        any,
+        this,
+        placeholder = R.drawable.ic_default_placeholder,
+        errorPic = R.drawable.ic_default_errorpic
+    ).also { c -> c.type = TransType.NORMAL }
+) = ImageLoader.getInstance().loadImage(BaseApp.instance, config)
+
+//是否快速点击了 true 是, false 否
+fun View.isFastClick(): Boolean {
+    return UIUtils.isFastClick()
 }

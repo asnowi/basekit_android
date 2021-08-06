@@ -2,12 +2,15 @@ package com.maple.baselib.app
 
 import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ViewModelStoreOwner
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
 import com.maple.baselib.app.manager.ForebackLifeObserver
 import com.maple.baselib.utils.LogUtils
 
-abstract class BaseApp: Application() {
+abstract class BaseApp: Application(), ViewModelStoreOwner {
+
+    abstract fun getAppPackage(): String
 
     abstract fun initSDK(app: Application)
 
@@ -26,8 +29,8 @@ abstract class BaseApp: Application() {
 
     open fun initApp() {
         Utils.init(this)
-        SPUtils.getInstance(this.packageName)
-        LogUtils.logGGQ(this.packageName)
+        SPUtils.getInstance(this.getAppPackage())
+        LogUtils.logGGQ(this.getAppPackage())
         registerLifecycle()
     }
 

@@ -83,7 +83,7 @@ class SplashActivity : BaseActivity() {
 
     private fun launchTarget() {
         if (hasFirst) {
-            onStartActivity(AccountActivity::class.java, isFinish = true)
+            onStartActivity(HomeActivity::class.java, isFinish = true)
         } else {
             onStartActivity(WelcomeActivity::class.java, isFinish = true)
         }

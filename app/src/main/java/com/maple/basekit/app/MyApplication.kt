@@ -1,6 +1,7 @@
 package com.maple.basekit.app
 
 import android.app.Application
+import androidx.lifecycle.ViewModelStore
 import com.maple.common.app.CommonApp
 
 class MyApplication: CommonApp() {
@@ -16,7 +17,11 @@ class MyApplication: CommonApp() {
         instance = this
     }
 
+    override fun getAppPackage(): String = this.packageName
+
     override fun initSDK(app: Application) {
 
     }
+
+    override fun getViewModelStore(): ViewModelStore = ViewModelStore()
 }

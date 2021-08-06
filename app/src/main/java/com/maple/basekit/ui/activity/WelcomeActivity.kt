@@ -1,9 +1,13 @@
 package com.maple.basekit.ui.activity
 
 import android.os.Bundle
+import com.blankj.utilcode.util.SPUtils
 import com.maple.basekit.R
+import com.maple.basekit.app.MyApplication
+import com.maple.basekit.app.config.Const
 import com.maple.basekit.ui.adapter.WelcomeAdapter
 import com.maple.common.base.BaseActivity
+import com.maple.common.base.BaseAdapter
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 import kotlinx.android.synthetic.main.activity_welcome.*
 
@@ -35,7 +39,20 @@ class WelcomeActivity : BaseActivity() {
     override fun initData(savedInstanceState: Bundle?) {
         vp.adapter = WelcomeAdapter(this).apply {
             this.setData(list)
+            this.setListener(object : BaseAdapter.OnClickListener<Int> {
+                override fun onItemClick(pos: Int, item: Int?) {
+                    if (list.size == (pos + 1)) {
+                        launchTarget()
+                    }
+                }
+            })
         }
+    }
+
+    private fun launchTarget() {
+        SPUtils.getInstance(MyApplication.instance.getAppPackage())
+            .put(Const.SaveInfoKey.HAS_APP_FIRST, true)
+        onStartActivity(AccountActivity::class.java, isFinish = true)
     }
 
 }
