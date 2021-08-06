@@ -14,6 +14,7 @@ abstract class CommonApp: BaseApp() {
 
     override fun initApp() {
         super.initApp()
+        instance = this
         MMKV.initialize(this)
     }
 

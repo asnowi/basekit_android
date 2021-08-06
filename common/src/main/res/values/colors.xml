@@ -8,6 +8,7 @@
     <color name="common_black">#000000</color>
     <color name="common_trans">#00000000</color>
     <color name="common_gray">#AAAAAA</color>
+    <color name="common_red">#FF5E51</color>
 
     <color name="common_background">#FFFFFF</color>
 
@@ -24,5 +25,9 @@
     <color name="common_gradient_light">#38B7FE</color>
 
     <color name="common_line">#E0E0E0</color>
+
+    <color name="common_light_pressed">#E0E0E0</color>
+    <color name="common_light_normal">#f9f9f9</color>
+
 
 </resources>

@@ -11,6 +11,11 @@ class MyApplication: CommonApp() {
             private set
     }
 
+    override fun initApp() {
+        super.initApp()
+        instance = this
+    }
+
     override fun initSDK(app: Application) {
 
     }
