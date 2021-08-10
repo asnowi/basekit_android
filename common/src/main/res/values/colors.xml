@@ -5,18 +5,19 @@
     <color name="common_accent">#00A2E9</color>
 
     <color name="common_white">#FFFFFF</color>
+    <color name="common_trans_white">#88FFFFFF</color>
     <color name="common_black">#000000</color>
     <color name="common_trans">#00000000</color>
     <color name="common_gray">#AAAAAA</color>
     <color name="common_red">#FF5E51</color>
 
-    <color name="common_background">#FFFFFF</color>
+
+    <color name="common_background">#F3F3F3</color>
 
 
     <color name="common_pressed">#00A2E9</color>
     <color name="common_normal">#38B7FE</color>
     <color name="common_enable">#3338B7FE</color>
-
 
     <color name="common_toolbar">#38B7FE</color>
     <color name="common_loading">#aeaeae</color>
@@ -24,10 +25,11 @@
     <color name="common_gradient_dark">#00A2E9</color>
     <color name="common_gradient_light">#38B7FE</color>
 
-    <color name="common_line">#E0E0E0</color>
+    <color name="common_line">#F1F1F1</color>
 
     <color name="common_light_pressed">#E0E0E0</color>
-    <color name="common_light_normal">#f9f9f9</color>
+    <color name="common_light_normal">#F9F9F9</color>
+
 
 
 </resources>

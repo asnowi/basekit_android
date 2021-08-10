@@ -90,4 +90,9 @@
         <item name="android:background">@color/common_line</item>
     </style>
 
+    <style name="common_style_tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/common_primary</item>
+    </style>
 </resources>

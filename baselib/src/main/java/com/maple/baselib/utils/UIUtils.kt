@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.ResourceUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.StringUtils
 
 class UIUtils {
@@ -24,6 +25,9 @@ class UIUtils {
             return ResourceUtils.getDrawable(resId)
         }
 
+        fun getSize(dp: Float): Int{
+            return SizeUtils.dp2px(dp)
+        }
 
         private var lastClickTime: Long = 0
         private const val DELAY_TIME: Long = 600

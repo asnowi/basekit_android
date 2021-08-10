@@ -57,12 +57,12 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
             error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
                 LogUtils.logGGQ("--isShowToast-->${isShowToast}")
                 LogUtils.logGGQ("--error-->${it.errMsg}")
-                if(isShowToast) defUI.onError(it)
+                if(isShowToast) defUI.onToast(it.errMsg)
             },
             complete: suspend CoroutineScope.() -> Unit = {}
     ) {
         if (!NetworkUtil.isConnected()) {
-            defUI.onError(ResponseThrowable(ERROR.NETWORD_UNCONNECTED))
+            defUI.onToast(ERROR.NETWORD_UNCONNECTED.getValue())
             return
         }
         if (isShowDialog) defUI.onShowDialog()
@@ -95,12 +95,12 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
             error: (ResponseThrowable) -> Unit = {
                 LogUtils.logGGQ("--isShowToast--->${isShowToast}")
                 LogUtils.logGGQ("--error--->${it.errMsg}")
-                if(isShowToast) defUI.onError(it)
+                if(isShowToast) defUI.onToast(it.errMsg)
             },
             complete: () -> Unit = {}
     ) {
         if (!NetworkUtil.isConnected()) {
-            defUI.onError(ResponseThrowable(ERROR.NETWORD_UNCONNECTED))
+            defUI.onToast(ERROR.NETWORD_UNCONNECTED.getValue())
             return
         }
         if (isShowDialog) defUI.onShowDialog()
@@ -198,9 +198,9 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
     inner class UIChange{
 
         val toastEvent by lazy { SingleLiveEvent<String>() }
-        fun onError(e: ResponseThrowable) {
-            LogUtils.logGGQ(e.errMsg)
-            toastEvent.postValue(e.errMsg)
+
+        fun onToast(msg: String?) {
+            toastEvent.postValue(msg)
         }
 
         val showDialog by lazy { SingleLiveEvent<Any>() }

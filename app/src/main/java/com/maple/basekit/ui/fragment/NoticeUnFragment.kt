@@ -6,9 +6,14 @@ import com.maple.basekit.databinding.FragmentNoticeUnBinding
 import com.maple.basekit.vm.NoticeViewModel
 import com.maple.common.base.BaseViewFragment
 
-class NoticeUnFragment : BaseViewFragment<FragmentNoticeUnBinding, NoticeViewModel>() {
+class NoticeUnFragment(val viewModel: NoticeViewModel): BaseViewFragment<FragmentNoticeUnBinding, NoticeViewModel>() {
 
-    private val viewModel by viewModels<NoticeViewModel>()
+    companion object {
+        @JvmStatic
+        fun getInstance(viewModel: NoticeViewModel): NoticeUnFragment {
+            return NoticeUnFragment(viewModel)
+        }
+    }
 
     override fun bindViewModel() {
         this.binding.viewModel = viewModel

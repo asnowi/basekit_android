@@ -56,7 +56,7 @@ fun ImageView.loadImage(any: Any) = ImageLoader.getInstance().loadImage(
     BaseApp.instance,
     GlideImageConfig(
         any,
-        this,
+        imageView = this,
         placeholder = R.drawable.ic_default_placeholder,
         errorPic = R.drawable.ic_default_errorpic
     ).also { c -> c.type = TransType.NORMAL })
@@ -65,8 +65,8 @@ fun ImageView.loadImage(any: Any) = ImageLoader.getInstance().loadImage(
 fun ImageView.loadConfigImage(
     any: Any,
     config: GlideImageConfig = GlideImageConfig(
-        any,
-        this,
+        any = any,
+        imageView = this,
         placeholder = R.drawable.ic_default_placeholder,
         errorPic = R.drawable.ic_default_errorpic
     ).also { c -> c.type = TransType.NORMAL }
