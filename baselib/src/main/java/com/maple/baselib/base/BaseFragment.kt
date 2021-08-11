@@ -56,21 +56,21 @@ abstract class BaseFragment: Fragment(), IView{
         super.onResume()
         if (isFirstLoad) {
             isFirstLoad = false
-            lazyLoad()
+            onLazyLoad()
         } else {
-            invalidLoad()
+            onRestLoad()
         }
     }
 
-    open fun lazyLoad() {
-        LogUtils.logGGQ("----------lazyLoad-------->>>")
+    open fun onLazyLoad() {
+       // LogUtils.logGGQ("----------onLazyLoad-------->>>")
     }
 
-    open fun invalidLoad() {
+    open fun onRestLoad() {
         if(hasStatusBarMode() && hasReloadStatusBar()) {
             setStatusBarMode()
         }
-        LogUtils.logGGQ("----------invalidLoad-------->>>")
+       // LogUtils.logGGQ("----------onRestLoad-------->>>")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

@@ -47,7 +47,12 @@ class MainFragment(val viewModel: HomeViewModel): BaseViewFragment<FragmentMainB
         bannerList.add(BannerEntity("测试2",resId = R.drawable.welcome2, type = 1))
         bannerList.add(BannerEntity("测试3",resId = R.drawable.welcome3, type = 1))
         bannerList.add(BannerEntity("测试4",resId = R.drawable.welcome4, type = 1))
-        val bannerAdapter: MyBannerAdapter = MyBannerAdapter(requireContext(), bannerList)
+        val bannerAdapter: MyBannerAdapter = MyBannerAdapter(requireContext(), bannerList).apply {
+            this.setOnBannerListener { data, position ->
+                showToast(data.name)
+            }
+        }
+
         binding.banner.addBannerLifecycleObserver(this)
             .setAdapter(bannerAdapter)
             .setIndicator(RectangleIndicator(requireContext()))

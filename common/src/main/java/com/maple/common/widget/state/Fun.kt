@@ -1,9 +1,7 @@
 package com.maple.common.widget.state
 
 import com.zy.multistatepage.MultiStateContainer
-import com.zy.multistatepage.state.EmptyState
 import com.zy.multistatepage.state.ErrorState
-import com.zy.multistatepage.state.LoadingState
 import com.zy.multistatepage.state.SuccessState
 
 
@@ -13,20 +11,20 @@ fun MultiStateContainer.showSuccess(callBack: () -> Unit = {}) {
     }
 }
 
-fun MultiStateContainer.showError(callBack: (ErrorState) -> Unit = {}) {
-    show<ErrorState> {
+fun MultiStateContainer.showError(callBack: (MyErrorState) -> Unit = {}) {
+    show<MyErrorState> {
         callBack.invoke(it)
     }
 }
 
 fun MultiStateContainer.showEmpty(callBack: () -> Unit = {}) {
-    show<EmptyState> {
+    show<MyEmptyState> {
         callBack.invoke()
     }
 }
 
 fun MultiStateContainer.showLoading(callBack: () -> Unit = {}) {
-    show<LoadingState> {
+    show<MyLoadingState> {
         callBack.invoke()
     }
 }

@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     tools:ignore="ResourceName">
 
     <TextView

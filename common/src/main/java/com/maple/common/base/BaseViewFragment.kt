@@ -12,10 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.maple.baselib.base.BaseViewModel
 import com.maple.common.R
-import com.maple.common.widget.state.showEmpty
-import com.maple.common.widget.state.showError
-import com.maple.common.widget.state.showLoading
-import com.maple.common.widget.state.showSuccess
+import com.maple.common.widget.state.*
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.bindMultiState
 import kotlinx.coroutines.CoroutineScope
@@ -96,7 +93,9 @@ abstract class BaseViewFragment<VB : ViewDataBinding, VM : BaseViewModel>: com.m
     }
 
     open fun onStateError(){
-        if(hasUsedStateView())multiState?.showError()
+        if(hasUsedStateView())multiState?.let { c ->
+            c.showError(callBack = { this.onStateRetry(c) })
+        }
     }
 
     open fun onStateSuccess(){

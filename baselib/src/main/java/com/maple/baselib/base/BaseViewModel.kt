@@ -1,6 +1,7 @@
 package com.maple.baselib.base
 
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maple.baselib.app.ResultCode
@@ -211,6 +212,24 @@ open class BaseViewModel: ViewModel(), LifecycleObserver {
         val dismissDialog by lazy { SingleLiveEvent<Any>() }
         fun onDismissDialog () {
             dismissDialog.call()
+        }
+
+        //0 content --  1 loading --  2 empty --  3 error
+        val stateViewEvent by lazy { MutableLiveData<ViewState>() }
+        fun showUIContent(){
+            stateViewEvent.postValue(ViewState.SUCCESS)
+        }
+
+        fun showUILoading(){
+            stateViewEvent.postValue(ViewState.LOADING)
+        }
+
+        fun showUIEmpty(){
+            stateViewEvent.postValue(ViewState.EMPTY)
+        }
+
+        fun showUIError(){
+            stateViewEvent.postValue(ViewState.ERROR)
         }
     }
 
