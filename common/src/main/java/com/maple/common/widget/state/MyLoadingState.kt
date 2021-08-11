@@ -4,13 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.maple.common.R
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateContainer
 
 class MyLoadingState: MultiState() {
 
-    private var tvLoadingMsg: TextView? = null
+    private var lottieLoading: LottieAnimationView? = null
 
 
     override fun onCreateMultiStateView(
@@ -22,6 +23,6 @@ class MyLoadingState: MultiState() {
     }
 
     override fun onMultiStateViewCreate(view: View) {
-        tvLoadingMsg = view.findViewById(R.id.tv_loading_msg)
+        lottieLoading = view.findViewById(R.id.lottie_loading)
     }
 }

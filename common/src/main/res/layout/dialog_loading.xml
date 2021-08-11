@@ -20,15 +20,25 @@
 <!--        android:indeterminateTint="@color/common_colorPrimary"-->
 <!--        android:indeterminateTintMode="src_atop" />-->
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lav_loading"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:scaleType="centerCrop"
+        app:lottie_fileName="lottie_loading.json"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
+
+    <TextView
+        android:id="@+id/tv_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        style="@style/common_avloading"
-        app:indicatorName="LineSpinFadeLoaderIndicator"
-        app:indicatorColor="@color/common_loading" />
-
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
+        android:textSize="@dimen/common_font_mini"
+        android:textColor="@color/common_loading"
+        android:text="@string/common_loading" />
 </LinearLayout>

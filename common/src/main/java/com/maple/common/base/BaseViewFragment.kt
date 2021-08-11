@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.maple.baselib.base.BaseViewModel
+import com.maple.baselib.utils.LogUtils
 import com.maple.common.R
 import com.maple.common.widget.state.*
 import com.zy.multistatepage.MultiStateContainer
@@ -94,7 +95,9 @@ abstract class BaseViewFragment<VB : ViewDataBinding, VM : BaseViewModel>: com.m
 
     open fun onStateError(){
         if(hasUsedStateView())multiState?.let { c ->
-            c.showError(callBack = { this.onStateRetry(c) })
+            c.showError(callBack = { it.retry = {
+                onStateRetry(c)
+            } })
         }
     }
 

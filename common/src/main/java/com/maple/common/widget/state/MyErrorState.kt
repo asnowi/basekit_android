@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
+import com.maple.baselib.utils.LogUtils
 import com.maple.common.R
 import com.zy.multistatepage.MultiState
 import com.zy.multistatepage.MultiStateContainer
@@ -12,7 +14,7 @@ import com.zy.multistatepage.MultiStateContainer
 class MyErrorState: MultiState() {
 
     private var tvErrorMsg: TextView? = null
-    private var imgError: ImageView? = null
+    private var lottieError: LottieAnimationView? = null
     private var tvRetry: TextView? = null
 
     var retry: (() -> Unit)? = null
@@ -26,10 +28,9 @@ class MyErrorState: MultiState() {
     }
 
 
-
     override fun onMultiStateViewCreate(view: View) {
         tvErrorMsg = view.findViewById(R.id.tv_error_msg)
-        imgError = view.findViewById(R.id.img_error)
+        lottieError = view.findViewById(R.id.lottie_error)
         tvRetry = view.findViewById(R.id.tv_retry)
         tvRetry?.setOnClickListener { retry?.invoke() }
     }

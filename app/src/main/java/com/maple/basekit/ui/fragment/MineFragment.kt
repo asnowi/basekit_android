@@ -20,7 +20,7 @@ import com.maple.common.ext.toVisible
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 class MineFragment(val viewModel: HomeViewModel) : BaseViewFragment<FragmentMineBinding, HomeViewModel>(){
-
+    private var isShowLoading = false
     override fun hasStatusBarMode(): Boolean = true
 
     override fun setStatusBarMode(color: Int) {
@@ -55,5 +55,15 @@ class MineFragment(val viewModel: HomeViewModel) : BaseViewFragment<FragmentMine
             (activity as BaseActivity).onStartActivity(NoticeActivity::class.java)
         })
 
+        viewModel.loadingEvent.observe(this, {
+            if(isShowLoading) {
+                isShowLoading = false
+                dismissLoading()
+            } else {
+                isShowLoading = true
+                showLoading()
+            }
+        })
     }
+
 }

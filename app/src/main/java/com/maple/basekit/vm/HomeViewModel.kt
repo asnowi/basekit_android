@@ -6,6 +6,7 @@ import com.maple.baselib.base.BaseViewModel
 class HomeViewModel: BaseViewModel() {
 
     val noticeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val loadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     fun onTest1Click() {
         noticeEvent.call()
@@ -13,5 +14,9 @@ class HomeViewModel: BaseViewModel() {
 
     fun onTest2Click() {
         defUI.onToast("测试2")
+    }
+
+    fun onTest3Click () {
+        loadingEvent.call()
     }
 }

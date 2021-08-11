@@ -123,7 +123,11 @@ abstract class BaseActivity: B(){
      * 多状态布局 错误页面
      */
     open fun onStateError() {
-        if(hasUsedStateView()) multiState?.showError()
+        if(hasUsedStateView())multiState?.let { c ->
+            c.showError(callBack = { it.retry = {
+                onStateRetry(c)
+            } })
+        }
     }
 
     /***
