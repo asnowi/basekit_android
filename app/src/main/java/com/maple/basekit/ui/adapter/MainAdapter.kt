@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -79,10 +80,13 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
 
 
     inner class BannerViewHolder(itemView: View) : BaseViewHolder<BannerEntity>(itemView) {
-        fun setData(position: Int) {
+        fun setData(pos: Int) {
             val bannerViewPager: BannerViewPager<BannerEntity>? = itemView.findViewById(R.id.banner)
             bannerViewPager?.apply {
                 adapter = BannerAdapter()
+                setOnPageClickListener { clickedView, position ->
+                    listener?.onBannerItemClick(position, bannerList?.get(position))
+                }
             }?.create(bannerList)
         }
     }
@@ -90,15 +94,22 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
 
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val root: LinearLayout? = itemView.findViewById(R.id.root_list)
         private val tvName: TextView? = itemView.findViewById(R.id.tv_name)
-        fun setData(position: Int) {
+        private val ivImg: ImageView? = itemView.findViewById(R.id.iv_img)
+        fun setData(pos: Int) {
                 menuList?.let { list ->
-                    tvName?.text = list.get(position - 1).name
+                    tvName?.text = list.get(pos - 1).name
+                    ivImg?.loadImage(if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(position - 1).resId) else list.get(position - 1).url)
+                    root?.setOnClickListener {
+                        listener?.onListItemClick(pos, list.get(pos - 1))
+                    }
                 }
             }
     }
 
     interface OnClickListener {
-        fun onItemClick(pos: Int)
+        fun onBannerItemClick(pos: Int, item: BannerEntity?)
+        fun onListItemClick(pos: Int, item: MainEntity?)
     }
 }

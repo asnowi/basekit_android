@@ -22,7 +22,21 @@ class MainFragment(val viewModel: HomeViewModel) :
     private val bannerList: MutableList<BannerEntity> = mutableListOf()
     private val menuList: MutableList<MainEntity> = mutableListOf()
 
-    private val mainAdapter: MainAdapter by lazy { MainAdapter(requireContext()) }
+    private val mainAdapter: MainAdapter by lazy { MainAdapter(requireContext()).apply {
+        setListener(object: MainAdapter.OnClickListener{
+            override fun onBannerItemClick(pos: Int, item: BannerEntity?) {
+                item?.let {
+                    showToast(it.name)
+                }
+            }
+
+            override fun onListItemClick(pos: Int, item: MainEntity?) {
+                item?.let {
+                    showToast(it.name)
+                }
+            }
+        })
+    } }
 
     override fun hasStatusBarMode(): Boolean = true
 
@@ -59,10 +73,10 @@ class MainFragment(val viewModel: HomeViewModel) :
         bannerList.add(BannerEntity("测试4", resId = R.drawable.welcome4, type = 1))
 
         menuList.clear()
-        menuList.add(MainEntity("测试1", resId = R.drawable.welcome1, type = 1))
-        menuList.add(MainEntity("测试2", resId = R.drawable.welcome2, type = 1))
-        menuList.add(MainEntity("测试3", resId = R.drawable.welcome3, type = 1))
-        menuList.add(MainEntity("测试4", resId = R.drawable.welcome4, type = 1))
+        menuList.add(MainEntity("测试1", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=0.jpg"))
+        menuList.add(MainEntity("测试2", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=0.jpg"))
+        menuList.add(MainEntity("测试3", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=0.jpg"))
+        menuList.add(MainEntity("测试4", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=0.jpg"))
 
         binding.commonRecyclerView.apply {
             val layoutManage: GridLayoutManager = GridLayoutManager(requireContext(), 2)
