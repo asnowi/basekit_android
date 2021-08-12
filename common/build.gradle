@@ -69,6 +69,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     /// multidex
     api 'androidx.multidex:multidex:2.0.1'
+    /// recyclerview
+    api 'androidx.recyclerview:recyclerview:1.2.1'
     /// 屏幕适配
     api 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
     /// 多状态视图
@@ -97,8 +99,12 @@ dependencies {
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
-    api 'io.github.youth5201314:banner:2.2.2'
+    api 'com.github.zhpanvip:bannerviewpager:3.5.4'
 
+    /// 下拉刷新
+    api 'com.scwang.smart:refresh-layout-kernel:2.0.3'
+    api 'com.scwang.smart:refresh-header-classics:2.0.3'
+    api 'com.scwang.smart:refresh-footer-classics:2.0.3'
 //    api 'com.github.yyued:SVGAPlayer-Android:2.5.15'
 
 //    api('org.jetbrains.anko:anko:0.10.8') {

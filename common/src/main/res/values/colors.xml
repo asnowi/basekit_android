@@ -20,7 +20,7 @@
     <color name="common_enable">#3338B7FE</color>
 
     <color name="common_toolbar">#38B7FE</color>
-    <color name="common_loading">#393939</color>
+    <color name="common_loading">#00A2E9</color>
 
     <color name="common_gradient_dark">#00A2E9</color>
     <color name="common_gradient_light">#38B7FE</color>
@@ -29,6 +29,8 @@
 
     <color name="common_light_pressed">#E0E0E0</color>
     <color name="common_light_normal">#F9F9F9</color>
+
+    <color name="common_refresh">#AAAAAA</color>
 
 
 

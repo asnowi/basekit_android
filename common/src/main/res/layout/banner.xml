@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:orientation="vertical"
+    android:background="@color/common_background"
+    tools:ignore="ResourceName">
+
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        app:bvp_indicator_checked_color="@color/common_white"
+        app:bvp_indicator_normal_color="@color/common_trans_white"
+        app:bvp_indicator_radius="6dp"
+        app:bvp_round_corner="6dp"
+        app:bvp_indicator_style="round_rect"
+        app:bvp_indicator_slide_mode="worm">
+
+    </com.zhpan.bannerview.BannerViewPager>
+</LinearLayout>

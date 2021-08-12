@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,7 +15,6 @@ import com.maple.basekit.vm.NoticeViewModel
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewActivity
 import com.maple.common.common.MyFragmentStateAdapter
-import com.youth.banner.transformer.ScaleInTransformer
 import org.jetbrains.anko.textColor
 
 class NoticeActivity : BaseViewActivity<ActivityNoticeBinding, NoticeViewModel>() {
@@ -45,11 +42,6 @@ class NoticeActivity : BaseViewActivity<ActivityNoticeBinding, NoticeViewModel>(
             NoticeUnFragment.getInstance(viewModel),
             NoticeOnFragment.getInstance(viewModel)
         )
-
-        val pageTrans = CompositePageTransformer().apply {
-            this.addTransformer(ScaleInTransformer())
-            this.addTransformer(MarginPageTransformer(UIUtils.getSize(10f)))
-        }
 
         callback = object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

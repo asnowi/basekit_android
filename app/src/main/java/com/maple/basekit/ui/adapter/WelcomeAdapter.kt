@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.maple.basekit.R
+import com.maple.baselib.ext.layoutInflater
 import com.maple.common.base.BaseAdapter
 import com.maple.common.base.BaseViewHolder
 import com.maple.common.ext.isFastClick
@@ -14,7 +15,7 @@ import com.maple.common.ext.loadImage
 class WelcomeAdapter(context:Context) : BaseAdapter<Int, WelcomeAdapter.ViewHolder>(context) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_welcome,parent,false))
+        return ViewHolder(context.layoutInflater.inflate(R.layout.item_welcome,parent,false))
     }
 
     inner class ViewHolder(itemView: View) : BaseViewHolder<Int>(itemView) {

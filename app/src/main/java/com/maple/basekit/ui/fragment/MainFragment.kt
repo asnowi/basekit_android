@@ -1,21 +1,28 @@
 package com.maple.basekit.ui.fragment
 
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMainBinding
 import com.maple.basekit.model.entity.BannerEntity
-import com.maple.basekit.ui.adapter.MyBannerAdapter
+import com.maple.basekit.model.entity.MainEntity
+import com.maple.basekit.ui.adapter.MainAdapter
 import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewFragment
-import com.youth.banner.indicator.CircleIndicator
-import com.youth.banner.indicator.RectangleIndicator
-import com.youth.banner.indicator.RoundLinesIndicator
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
-class MainFragment(val viewModel: HomeViewModel): BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
+class MainFragment(val viewModel: HomeViewModel) :
+    BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
+
+    override fun hasUsedStateView(): Boolean = true
 
     private val bannerList: MutableList<BannerEntity> = mutableListOf()
+    private val menuList: MutableList<MainEntity> = mutableListOf()
+
+    private val mainAdapter: MainAdapter by lazy { MainAdapter(requireContext()) }
 
     override fun hasStatusBarMode(): Boolean = true
 
@@ -41,20 +48,35 @@ class MainFragment(val viewModel: HomeViewModel): BaseViewFragment<FragmentMainB
     override fun getLayoutId(): Int = R.layout.fragment_main
 
     override fun initData(savedInstanceState: Bundle?) {
-        setTitle<MainFragment>("首页").setTxtColor<MainFragment>(R.color.common_white).onUseBack<MainFragment>(false)
+        setTitle<MainFragment>("首页").setTxtColor<MainFragment>(R.color.common_white)
+            .onUseBack<MainFragment>(false)
+
+
         bannerList.clear()
-        bannerList.add(BannerEntity("测试1",resId = R.drawable.welcome1, type = 1))
-        bannerList.add(BannerEntity("测试2",resId = R.drawable.welcome2, type = 1))
-        bannerList.add(BannerEntity("测试3",resId = R.drawable.welcome3, type = 1))
-        bannerList.add(BannerEntity("测试4",resId = R.drawable.welcome4, type = 1))
-        val bannerAdapter: MyBannerAdapter = MyBannerAdapter(requireContext(), bannerList).apply {
-            this.setOnBannerListener { data, position ->
-                showToast(data.name)
-            }
+        bannerList.add(BannerEntity("测试1", resId = R.drawable.welcome1, type = 1))
+        bannerList.add(BannerEntity("测试2", resId = R.drawable.welcome2, type = 1))
+        bannerList.add(BannerEntity("测试3", resId = R.drawable.welcome3, type = 1))
+        bannerList.add(BannerEntity("测试4", resId = R.drawable.welcome4, type = 1))
+
+        menuList.clear()
+        menuList.add(MainEntity("测试1", resId = R.drawable.welcome1, type = 1))
+        menuList.add(MainEntity("测试2", resId = R.drawable.welcome2, type = 1))
+        menuList.add(MainEntity("测试3", resId = R.drawable.welcome3, type = 1))
+        menuList.add(MainEntity("测试4", resId = R.drawable.welcome4, type = 1))
+
+        binding.commonRecyclerView.apply {
+            val layoutManage: GridLayoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManage.spanSizeLookup = (object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if(position >= 1) 1 else 2
+                }
+            })
+            layoutManager = layoutManage
+            adapter = mainAdapter
         }
 
-        binding.banner.addBannerLifecycleObserver(this)
-            .setAdapter(bannerAdapter)
-            .setIndicator(RectangleIndicator(requireContext()))
+        mainAdapter.setBannerData(bannerList)
+        mainAdapter.setListData(menuList)
+
     }
 }
