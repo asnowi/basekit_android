@@ -7,4 +7,5 @@ open class ImageConfig {
     lateinit var imageView: ImageView
     var placeholder:Int = 0
     var errorPic:Int = 0
+    var loadingLayer = 0
 }

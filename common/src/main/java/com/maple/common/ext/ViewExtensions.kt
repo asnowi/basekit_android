@@ -69,7 +69,7 @@ fun ImageView.loadConfigImage(
         imageView = this,
         placeholder = R.drawable.ic_default_placeholder,
         errorPic = R.drawable.ic_default_errorpic
-    ).also { c -> c.type = TransType.NORMAL }
+    ).also { c -> c.type = TransType.CIRCLE_ANR_BLUR }
 ) = ImageLoader.getInstance().loadImage(BaseApp.instance, config)
 
 //是否快速点击了 true 是, false 否

@@ -15,11 +15,12 @@ class GlideImageConfig: ImageConfig {
     var progressListener: ProgressListener? = null
     var type: TransType = TransType.NORMAL
 
-    constructor(any:Any, imageView: ImageView, progressListener: ProgressListener? = null, placeholder:Int = android.R.drawable.picture_frame, errorPic:Int = android.R.drawable.picture_frame){
+    constructor(any:Any, imageView: ImageView, progressListener: ProgressListener? = null, placeholder:Int = android.R.drawable.picture_frame, errorPic:Int = android.R.drawable.picture_frame, loadingLayer: Int = android.R.color.background_dark){
         this.any = any
         this.imageView = imageView
         this.progressListener = progressListener
         this.placeholder = placeholder
         this.errorPic = errorPic
+        this.loadingLayer = loadingLayer
     }
 }

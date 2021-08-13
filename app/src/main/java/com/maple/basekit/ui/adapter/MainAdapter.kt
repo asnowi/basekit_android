@@ -11,8 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.maple.basekit.R
 import com.maple.basekit.model.entity.BannerEntity
 import com.maple.basekit.model.entity.MainEntity
+import com.maple.baselib.app.BaseApp
 import com.maple.baselib.ext.layoutInflater
 import com.maple.baselib.utils.UIUtils
+import com.maple.baselib.widget.imageloader.ImageConfig
+import com.maple.baselib.widget.imageloader.ImageLoader
+import com.maple.baselib.widget.imageloader.TransType
+import com.maple.baselib.widget.imageloader.glide.GlideImageConfig
+import com.maple.common.ext.loadConfigImage
 import com.maple.common.ext.loadImage
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.BaseBannerAdapter
@@ -100,7 +106,10 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
         fun setData(pos: Int) {
                 menuList?.let { list ->
                     tvName?.text = list.get(pos - 1).name
-                    ivImg?.loadImage(if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(position - 1).resId) else list.get(position - 1).url)
+                    ivImg?.loadConfigImage(if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(pos - 1).resId) else list.get(pos - 1).url,config = GlideImageConfig(
+                            if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(pos - 1).resId) else list.get(pos - 1).url,
+                            ivImg
+                    ).apply { type = TransType.CIRCLE_ANR_BLUR })
                     root?.setOnClickListener {
                         listener?.onListItemClick(pos, list.get(pos - 1))
                     }

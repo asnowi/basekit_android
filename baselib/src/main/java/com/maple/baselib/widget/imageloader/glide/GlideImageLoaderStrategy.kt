@@ -117,8 +117,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
         if (config.valueBlur <= 0) {
             config.valueBlur = 6
         }
-
-
+        options.transform(CircleCrop(),BlurTransformation(config.valueBlur))
         if (config.progressListener == null) {
             Glide.with(ctx)
                 .load(config.any)
