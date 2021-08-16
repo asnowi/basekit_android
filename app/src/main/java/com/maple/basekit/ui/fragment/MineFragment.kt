@@ -13,6 +13,7 @@ import com.maple.basekit.db.UserInfo
 import com.maple.basekit.ui.activity.AccountActivity
 import com.maple.basekit.ui.activity.NoticeActivity
 import com.maple.basekit.vm.HomeViewModel
+import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.UIUtils
 import com.maple.baselib.widget.imageloader.TransType
 import com.maple.baselib.widget.imageloader.glide.GlideImageConfig
@@ -26,8 +27,6 @@ class MineFragment(val viewModel: HomeViewModel) :
     BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
     private var isShowLoading = false
     override fun hasStatusBarMode(): Boolean = true
-
-    private var userInfo: UserInfo? = null
 
     override fun setStatusBarMode(color: Int) {
         //super.setStatusBarMode(color)
@@ -52,15 +51,24 @@ class MineFragment(val viewModel: HomeViewModel) :
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initData(savedInstanceState: Bundle?) {
-        userInfo = DBHelper.getUserInfo()
-
-        setUserView()
         viewModel.defUI.toastEvent.observe(this, Observer {
             showToast(it)
         })
 
+        viewModel.userInfoEvent.observe(this, Observer {
+            if(it != null) {
+                LogUtils.logGGQ("--已登录--")
+                binding.tvName.text = it.phone
+                binding.ivAvatar.loadConfigImage(it.avatar, config = GlideImageConfig(it.avatar,binding.ivAvatar,loadingDrawable = ShimmerDrawable()).apply { type = TransType.CIRCLE })
+            } else {
+                LogUtils.logGGQ("--未登录--")
+                binding.tvName.text = "请登录"
+                binding.ivAvatar.loadImage(R.drawable.ic_default_avatar)
+            }
+        })
+
         viewModel.noticeEvent.observe(this, Observer {
-            if(userInfo != null) {
+            if(viewModel.userInfoEvent.value != null) {
                 (activity as BaseActivity).onStartActivity(NoticeActivity::class.java)
             } else {
                 val intent: Intent = Intent(requireActivity(),AccountActivity::class.java)
@@ -82,20 +90,12 @@ class MineFragment(val viewModel: HomeViewModel) :
         viewModel.logoutEvent.observe(this, Observer {
             SPUtils.getInstance().clear()
             DBHelper.removeUser()
-            userInfo = null
-            setUserView()
+            viewModel.userInfoEvent.value = null
         })
     }
 
-
-    private fun setUserView() {
-        if(userInfo != null) {
-            binding.tvName.text = userInfo!!.phone
-            binding.ivAvatar.loadConfigImage(userInfo!!.avatar, config = GlideImageConfig(userInfo!!.avatar,binding.ivAvatar,loadingDrawable = ShimmerDrawable()).apply { type = TransType.CIRCLE })
-        } else {
-            binding.tvName.text = "请登录"
-            binding.ivAvatar.loadImage(R.drawable.ic_default_avatar)
-        }
+    override fun onRestLoad() {
+        super.onRestLoad()
+        viewModel.setUserInfo()
     }
-
 }

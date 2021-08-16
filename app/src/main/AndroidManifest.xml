@@ -45,10 +45,13 @@
         <activity
             android:name=".ui.activity.AccountActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CommonTransitionsTheme" />
+            android:theme="@style/CommonTransitionsTheme"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
         <activity android:name=".ui.activity.NoticeActivity"
             android:screenOrientation="portrait" />
 
