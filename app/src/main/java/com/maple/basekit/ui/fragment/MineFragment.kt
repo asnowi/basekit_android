@@ -21,12 +21,21 @@ import com.maple.common.base.BaseActivity
 import com.maple.common.base.BaseViewFragment
 import com.maple.common.ext.loadConfigImage
 import com.maple.common.ext.loadImage
+import com.maple.common.widget.dialog.CommonDialog
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.enabled
 
 class MineFragment(val viewModel: HomeViewModel) :
     BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
     private var isShowLoading = false
     override fun hasStatusBarMode(): Boolean = true
+
+    private val logoutDialog by lazy { CommonDialog(requireActivity(),content = "确定退出账号",listener = object :
+        CommonDialog.OnClickListener{
+        override fun onConfirmClick() {
+            clearUserInfo()
+        } }) }
 
     override fun setStatusBarMode(color: Int) {
         //super.setStatusBarMode(color)
@@ -60,10 +69,19 @@ class MineFragment(val viewModel: HomeViewModel) :
                 LogUtils.logGGQ("--已登录--")
                 binding.tvName.text = it.phone
                 binding.ivAvatar.loadConfigImage(it.avatar, config = GlideImageConfig(it.avatar,binding.ivAvatar,loadingDrawable = ShimmerDrawable()).apply { type = TransType.CIRCLE })
+                binding.btnLogout.apply {
+                    text = "退出登录"
+                    background = UIUtils.getDrawable(R.drawable.shape_common_enable)
+                }
+
             } else {
                 LogUtils.logGGQ("--未登录--")
                 binding.tvName.text = "请登录"
                 binding.ivAvatar.loadImage(R.drawable.ic_default_avatar)
+                binding.btnLogout.apply {
+                    text = "点击登录"
+                    background = UIUtils.getDrawable(R.drawable.selector_common)
+                }
             }
         })
 
@@ -71,9 +89,7 @@ class MineFragment(val viewModel: HomeViewModel) :
             if(viewModel.userInfoEvent.value != null) {
                 (activity as BaseActivity).onStartActivity(NoticeActivity::class.java)
             } else {
-                val intent: Intent = Intent(requireActivity(),AccountActivity::class.java)
-                intent.putExtra("flag","slide")
-                startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity()).toBundle())
+                openLogin()
             }
         })
 
@@ -88,14 +104,29 @@ class MineFragment(val viewModel: HomeViewModel) :
         })
 
         viewModel.logoutEvent.observe(this, Observer {
-            SPUtils.getInstance().clear()
-            DBHelper.removeUser()
-            viewModel.userInfoEvent.value = null
+            if(viewModel.userInfoEvent.value != null) {
+                logoutDialog.show()
+            } else {
+                openLogin()
+            }
         })
     }
 
     override fun onRestLoad() {
         super.onRestLoad()
         viewModel.setUserInfo()
+    }
+
+
+    private fun clearUserInfo () {
+        SPUtils.getInstance().clear()
+        DBHelper.removeUser()
+        viewModel.userInfoEvent.value = null
+    }
+
+    private fun openLogin() {
+        val intent: Intent = Intent(requireActivity(),AccountActivity::class.java)
+        intent.putExtra("flag","slide")
+        startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity()).toBundle())
     }
 }

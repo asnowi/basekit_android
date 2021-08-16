@@ -11,7 +11,7 @@ class HomeViewModel: BaseViewModel() {
 
     val noticeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val loadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val logoutEvent: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
     init {
         setUserInfo()
