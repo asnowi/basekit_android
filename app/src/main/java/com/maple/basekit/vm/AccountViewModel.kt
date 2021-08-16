@@ -42,8 +42,7 @@ class AccountViewModel: BaseViewModel(){
                 ToastUtils.showToast("请输入账号或密码")
                 return@onClickProxy
             }
-           // login(phone!!,pwd!!)
-            loginEvent.call()
+            login(phone!!,pwd!!)
         }
     }
 
@@ -65,7 +64,7 @@ class AccountViewModel: BaseViewModel(){
         }, success = {
             it?.let { data ->
                 LogUtils.logGGQ("---登录--success--->>1-${data.toString()}")
-                val user: UserInfo = UserInfo(data.userId,data.name,data.phone,data.idNo,data.saToken)
+                val user: UserInfo = UserInfo(data.userId,data.name,data.phone,data.idNoPic1,data.saToken)
                 if(DBHelper.saveUser(user)) {
                     loginEvent.call()
                 } else {

@@ -2,7 +2,6 @@ package com.maple.baselib.base
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -45,7 +44,10 @@ abstract class BaseActivity: AppCompatActivity(), IView {
         return this.intent?.getBundleExtra(KEY_BUNDLE_DATA)
     }
 
+    open fun onBeforeCreate(savedInstanceState: Bundle?) {}
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        onBeforeCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
         setContentLayout()
         if (hasStatusBarMode()) {

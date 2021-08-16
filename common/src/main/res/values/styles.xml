@@ -17,6 +17,10 @@
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
+    <style name="CommonTransitionsTheme" parent="CommonNoTitleBarTheme">
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
     <style name="CommonDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/common_trans</item>
@@ -95,4 +99,5 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/common_primary</item>
     </style>
+
 </resources>

@@ -19,6 +19,8 @@ class MainFragment(val viewModel: HomeViewModel) :
 
     override fun hasUsedStateView(): Boolean = true
 
+    override fun hasStatusBarMode(): Boolean = true
+
     private val bannerList: MutableList<BannerEntity> = mutableListOf()
     private val menuList: MutableList<MainEntity> = mutableListOf()
 
@@ -38,7 +40,6 @@ class MainFragment(val viewModel: HomeViewModel) :
         })
     } }
 
-    override fun hasStatusBarMode(): Boolean = true
 
     override fun setStatusBarMode(color: Int) {
         // super.setStatusBarMode(color)
@@ -68,7 +69,6 @@ class MainFragment(val viewModel: HomeViewModel) :
         setTitle<MainFragment>("首页").setTxtColor<MainFragment>(R.color.common_white)
             .onUseBack<MainFragment>(false)
 
-
         bannerList.clear()
         bannerList.add(BannerEntity("测试1", resId = R.drawable.welcome1, type = 1))
         bannerList.add(BannerEntity("测试2", resId = R.drawable.welcome2, type = 1))
@@ -94,6 +94,15 @@ class MainFragment(val viewModel: HomeViewModel) :
 
         mainAdapter.setBannerData(bannerList)
         mainAdapter.setListData(menuList)
+    }
 
+    private val newList: MutableList<MainEntity> = mutableListOf()
+
+    override fun onRefreshData() {
+        super.onRefreshData()
+        newList.clear()
+        newList.add(MainEntity("新首页${mainAdapter.itemCount}", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=5.jpg"))
+        mainAdapter.updateListData(newList)
+        finishRefresh()
     }
 }

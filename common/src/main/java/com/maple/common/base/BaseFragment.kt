@@ -36,26 +36,20 @@ abstract class BaseFragment: B() {
         refreshLayout = view.findViewById(R.id.common_refreshLayout)
         recyclerView = view.findViewById(R.id.common_recyclerView)
 
-        if(isEnableRefresh()) {
-            refreshLayout?.setEnableRefresh(isEnableRefresh())//是否启用下拉刷新功能
+        refreshLayout?.setEnableRefresh(isEnableRefresh())//是否启用下拉刷新功能
+        refreshLayout?.setEnableLoadMore(isEnableLoadMore())//是否启用上拉加载功能
+        refreshLayout?.setOnRefreshListener { ref ->
+            onRefreshData()
         }
-        if(isEnableLoadMore()) {
-            refreshLayout?.setEnableLoadMore(isEnableLoadMore())//是否启用上拉加载功能
-        }
-        if(isEnableRefresh()) {
-            refreshLayout?.setOnRefreshListener { ref ->
-                onRefreshData()
-            }
-        }
-        if(isEnableLoadMore()) {
-            refreshLayout?.setOnLoadMoreListener { ref ->
-                onLoadMoreData()
-            }
+        refreshLayout?.setOnLoadMoreListener { ref ->
+            onLoadMoreData()
         }
     }
 
+    /// 下拉刷新
     open fun onRefreshData() {}
 
+    /// 加载更多
     open fun onLoadMoreData() {}
 
     //结束下拉刷新

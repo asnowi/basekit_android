@@ -28,8 +28,8 @@ import com.zhpan.bannerview.BaseViewHolder
 
 class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var bannerList: List<BannerEntity>? = null
-    private var menuList: List<MainEntity>? = null
+    private var bannerList: MutableList<BannerEntity> = mutableListOf()
+    private var menuList: MutableList<MainEntity> = mutableListOf()
 
     private var listener: OnClickListener? = null
 
@@ -46,14 +46,28 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
 
 
     fun setBannerData(list: List<BannerEntity>?) {
-        this.bannerList = list
-        notifyItemChanged(0)
+        list?.let {
+            this.bannerList.addAll(it)
+            notifyItemChanged(0)
+        }
+
     }
 
 
     fun setListData(list: List<MainEntity>?) {
-        this.menuList = list
-        notifyItemChanged(1)
+        list?.let {
+            this.menuList.addAll(it)
+            notifyItemChanged(1)
+        }
+    }
+
+    fun updateListData(l: List<MainEntity>?) {
+        this.menuList.let {
+            if(!l.isNullOrEmpty()){
+                it.addAll(l)
+                notifyItemChanged(1)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -74,7 +88,7 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     override fun getItemCount(): Int {
-        return if(menuList.isNullOrEmpty()) 1 else menuList!!.size + 1
+        return if(menuList.isEmpty()) 1 else menuList.size + 1
     }
 
 
@@ -92,7 +106,7 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
             bannerViewPager?.apply {
                 adapter = BannerAdapter()
                 setOnPageClickListener { clickedView, position ->
-                    listener?.onBannerItemClick(position, bannerList?.get(position))
+                    listener?.onBannerItemClick(position, bannerList.get(position))
                 }
             }?.create(bannerList)
         }
@@ -105,7 +119,7 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
         private val tvName: TextView? = itemView.findViewById(R.id.tv_name)
         private val ivImg: ImageView? = itemView.findViewById(R.id.iv_img)
         fun setData(pos: Int) {
-                menuList?.let { list ->
+                menuList.let { list ->
                     tvName?.text = list.get(pos - 1).name
                     ivImg?.loadConfigImage(if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(pos - 1).resId) else list.get(pos - 1).url,config = GlideImageConfig(
                             if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(pos - 1).resId) else list.get(pos - 1).url,

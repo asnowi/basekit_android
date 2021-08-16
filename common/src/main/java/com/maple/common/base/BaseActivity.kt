@@ -62,21 +62,13 @@ abstract class BaseActivity: B(){
         refreshLayout = this.findViewById(R.id.common_refreshLayout)
         recyclerView = this.findViewById(R.id.common_recyclerView)
 
-        if(isEnableRefresh()) {
-            refreshLayout?.setEnableRefresh(isEnableRefresh())//是否启用下拉刷新功能
+        refreshLayout?.setEnableRefresh(isEnableRefresh())//是否启用下拉刷新功能
+        refreshLayout?.setEnableLoadMore(isEnableLoadMore())//是否启用上拉加载功能
+        refreshLayout?.setOnRefreshListener { ref ->
+            onRefreshData()
         }
-        if(isEnableLoadMore()) {
-            refreshLayout?.setEnableLoadMore(isEnableLoadMore())//是否启用上拉加载功能
-        }
-        if(isEnableRefresh()) {
-            refreshLayout?.setOnRefreshListener { ref ->
-                onRefreshData()
-            }
-        }
-        if(isEnableLoadMore()) {
-            refreshLayout?.setOnLoadMoreListener { ref ->
-                onLoadMoreData()
-            }
+        refreshLayout?.setOnLoadMoreListener { ref ->
+            onLoadMoreData()
         }
     }
 

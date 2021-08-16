@@ -7,6 +7,7 @@ class HomeViewModel: BaseViewModel() {
 
     val noticeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val loadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     fun onTest1Click() {
         noticeEvent.call()
@@ -18,5 +19,10 @@ class HomeViewModel: BaseViewModel() {
 
     fun onTest3Click () {
         loadingEvent.call()
+    }
+
+
+    fun onLogout () {
+        logoutEvent.call()
     }
 }

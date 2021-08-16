@@ -26,7 +26,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
         val options = RequestOptions()
 
         options.placeholder(config.placeholder)
-//        options.error(config.errorPic)
+        options.error(config.errorPic)
 
         if (config.overWidth > 0 && config.overHeight > 0) {
             options.override(config.overWidth, config.overHeight)
@@ -40,7 +40,6 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
             TransType.CIRCLE_ANR_BLUR -> loadCircleAndBlur(ctx, options, config)
         }
     }
-
 
     @SuppressLint("CheckResult")
     private fun loadCommon(ctx: Context, options: RequestOptions, config: GlideImageConfig) {
@@ -79,7 +78,6 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
         } else {
             loadWhitListener(ctx, options, config)
         }
-
     }
 
 
