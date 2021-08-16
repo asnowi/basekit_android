@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerDrawable
 import com.maple.basekit.R
 import com.maple.basekit.model.entity.BannerEntity
 import com.maple.basekit.model.entity.MainEntity
@@ -108,7 +109,8 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
                     tvName?.text = list.get(pos - 1).name
                     ivImg?.loadConfigImage(if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(pos - 1).resId) else list.get(pos - 1).url,config = GlideImageConfig(
                             if(list.get(pos - 1).type == 1) UIUtils.getDrawable(list.get(pos - 1).resId) else list.get(pos - 1).url,
-                            ivImg
+                            ivImg,
+                            loadingDrawable = ShimmerDrawable()
                     ).apply { type = TransType.CIRCLE_ANR_BLUR })
                     root?.setOnClickListener {
                         listener?.onListItemClick(pos, list.get(pos - 1))

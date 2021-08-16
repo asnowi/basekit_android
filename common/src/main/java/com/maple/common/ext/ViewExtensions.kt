@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import com.facebook.shimmer.ShimmerDrawable
 import com.maple.baselib.app.BaseApp
 import com.maple.baselib.utils.UIUtils
 import com.maple.baselib.widget.imageloader.ImageLoader
@@ -58,7 +59,8 @@ fun ImageView.loadImage(any: Any) = ImageLoader.getInstance().loadImage(
         any,
         imageView = this,
         placeholder = R.drawable.ic_default_placeholder,
-        errorPic = R.drawable.ic_default_errorpic
+        errorPic = R.drawable.ic_default_errorpic,
+        loadingDrawable = ShimmerDrawable()
     ).also { c -> c.type = TransType.NORMAL })
 
 //自定义配置图片加载
@@ -68,7 +70,8 @@ fun ImageView.loadConfigImage(
         any = any,
         imageView = this,
         placeholder = R.drawable.ic_default_placeholder,
-        errorPic = R.drawable.ic_default_errorpic
+        errorPic = R.drawable.ic_default_errorpic,
+        loadingDrawable = ShimmerDrawable()
     ).also { c -> c.type = TransType.CIRCLE_ANR_BLUR }
 ) = ImageLoader.getInstance().loadImage(BaseApp.instance, config)
 

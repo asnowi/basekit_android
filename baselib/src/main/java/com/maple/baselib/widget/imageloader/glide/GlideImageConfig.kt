@@ -1,6 +1,7 @@
 package com.maple.baselib.widget.imageloader.glide
 
 import android.widget.ImageView
+import com.facebook.shimmer.ShimmerDrawable
 import com.maple.baselib.widget.imageloader.ImageConfig
 import com.maple.baselib.widget.imageloader.TransType
 import com.maple.baselib.widget.imageloader.listener.ProgressListener
@@ -15,12 +16,12 @@ class GlideImageConfig: ImageConfig {
     var progressListener: ProgressListener? = null
     var type: TransType = TransType.NORMAL
 
-    constructor(any:Any, imageView: ImageView, progressListener: ProgressListener? = null, placeholder:Int = android.R.drawable.picture_frame, errorPic:Int = android.R.drawable.picture_frame, loadingLayer: Int = android.R.color.background_dark){
+    constructor(any:Any, imageView: ImageView, progressListener: ProgressListener? = null, placeholder:Int = android.R.drawable.picture_frame, errorPic:Int = android.R.drawable.picture_frame, loadingDrawable: ShimmerDrawable? = null){
         this.any = any
         this.imageView = imageView
         this.progressListener = progressListener
         this.placeholder = placeholder
         this.errorPic = errorPic
-        this.loadingLayer = loadingLayer
+        this.loadingDrawable = loadingDrawable
     }
 }

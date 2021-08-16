@@ -100,7 +100,6 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     api 'com.github.zhpanvip:bannerviewpager:3.5.4'
-
     /// 下拉刷新
     api 'com.scwang.smart:refresh-layout-kernel:2.0.3'
     api 'com.scwang.smart:refresh-header-classics:2.0.3'

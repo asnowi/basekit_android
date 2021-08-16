@@ -1,13 +1,18 @@
 package com.maple.common.base
 
+import android.os.Bundle
+import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.maple.baselib.utils.UIUtils
+import com.maple.common.R
 import com.maple.common.ext.toGone
 import com.maple.common.ext.toVisible
 import com.maple.common.utils.ToastUtils
 import com.maple.common.widget.dialog.LoadingDialog
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
@@ -19,6 +24,53 @@ import com.maple.baselib.base.BaseFragment as B
 
 
 abstract class BaseFragment: B() {
+
+    protected var refreshLayout: SmartRefreshLayout? = null
+    protected var recyclerView: RecyclerView? = null
+
+    open fun isEnableRefresh(): Boolean = false
+    open fun isEnableLoadMore(): Boolean = false
+
+    override fun initView(view: View, savedInstanceState: Bundle?) {
+        super.initView(view, savedInstanceState)
+        refreshLayout = view.findViewById(R.id.common_refreshLayout)
+        recyclerView = view.findViewById(R.id.common_recyclerView)
+
+        if(isEnableRefresh()) {
+            refreshLayout?.setEnableRefresh(isEnableRefresh())//是否启用下拉刷新功能
+        }
+        if(isEnableLoadMore()) {
+            refreshLayout?.setEnableLoadMore(isEnableLoadMore())//是否启用上拉加载功能
+        }
+        if(isEnableRefresh()) {
+            refreshLayout?.setOnRefreshListener { ref ->
+                onRefreshData()
+            }
+        }
+        if(isEnableLoadMore()) {
+            refreshLayout?.setOnLoadMoreListener { ref ->
+                onLoadMoreData()
+            }
+        }
+    }
+
+    open fun onRefreshData() {}
+
+    open fun onLoadMoreData() {}
+
+    //结束下拉刷新
+    protected fun finishRefresh() {
+        refreshLayout?.let {
+            if (it.isRefreshing) it.finishRefresh(300)
+        }
+    }
+
+    //结束加载更多
+    protected fun finishLoadMore() {
+        refreshLayout?.let {
+            if (it.isLoading) it.finishLoadMore(300)
+        }
+    }
 
     /**
      * toast

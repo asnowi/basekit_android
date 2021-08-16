@@ -61,6 +61,9 @@ class MainFragment(val viewModel: HomeViewModel) :
 
     override fun getLayoutId(): Int = R.layout.fragment_main
 
+
+    override fun isEnableRefresh(): Boolean = true
+
     override fun initData(savedInstanceState: Bundle?) {
         setTitle<MainFragment>("首页").setTxtColor<MainFragment>(R.color.common_white)
             .onUseBack<MainFragment>(false)
@@ -73,20 +76,20 @@ class MainFragment(val viewModel: HomeViewModel) :
         bannerList.add(BannerEntity("测试4", resId = R.drawable.welcome4, type = 1))
 
         menuList.clear()
-        menuList.add(MainEntity("首页1", url = "http://image.huajiao.com/943063fe44aa1bcc4ece46ccbf358af811.jpg"))
-        menuList.add(MainEntity("首页2", url = "http://image.huajiao.com/943063fe44aa1bcc4ece46ccbf358af811.jpg"))
-        menuList.add(MainEntity("首页3", url = "http://image.huajiao.com/943063fe44aa1bcc4ece46ccbf358af811.jpg"))
-        menuList.add(MainEntity("首页4", url = "http://image.huajiao.com/943063fe44aa1bcc4ece46ccbf358af811.jpg"))
+        menuList.add(MainEntity("首页1", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=1.jpg"))
+        menuList.add(MainEntity("首页2", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=2.jpg"))
+        menuList.add(MainEntity("首页3", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=3.jpg"))
+        menuList.add(MainEntity("首页4", url = "https://img1.baidu.com/it/u=617911352,2488546121&fm=26&fmt=auto&gp=4.jpg"))
 
-        binding.commonRecyclerView.apply {
+        recyclerView?.let {
             val layoutManage: GridLayoutManager = GridLayoutManager(requireContext(), 2)
             layoutManage.spanSizeLookup = (object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return if(position >= 1) 1 else 2
                 }
             })
-            layoutManager = layoutManage
-            adapter = mainAdapter
+            it.layoutManager = layoutManage
+            it.adapter = mainAdapter
         }
 
         mainAdapter.setBannerData(bannerList)

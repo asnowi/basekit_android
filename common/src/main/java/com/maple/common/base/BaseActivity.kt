@@ -1,9 +1,10 @@
 package com.maple.common.base
 
-import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.recyclerview.widget.RecyclerView
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.R
 import com.maple.common.ext.toGone
@@ -14,9 +15,8 @@ import com.maple.common.widget.state.showEmpty
 import com.maple.common.widget.state.showError
 import com.maple.common.widget.state.showLoading
 import com.maple.common.widget.state.showSuccess
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
-import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
-import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zy.multistatepage.MultiStateContainer
 import com.zy.multistatepage.bindMultiState
 import kotlinx.android.synthetic.main.include_title.*
@@ -36,6 +36,15 @@ abstract class BaseActivity: B(){
      */
     open fun hasUsedStateView(): Boolean = false
 
+    /// 下拉刷新
+    protected var refreshLayout: SmartRefreshLayout? = null
+    protected var recyclerView: RecyclerView? = null
+
+    ///是否启用下拉刷新功能 默认不启用
+    open fun isEnableRefresh(): Boolean = false
+    ///是否启用上拉加载功能 默认不启用
+    open fun isEnableLoadMore(): Boolean = false
+
     /**
      * 多状态视图
      * 如果使用多状态视图,子类必须重写 hasUsedStateView 并返回 true,即可调用 onStateXXX() 等方法
@@ -46,6 +55,49 @@ abstract class BaseActivity: B(){
         if(hasUsedStateView()){
             this.findViewById<View>(R.id.common_container)?.bindMultiState() ?: this.bindMultiState()
         }else{ null }
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        refreshLayout = this.findViewById(R.id.common_refreshLayout)
+        recyclerView = this.findViewById(R.id.common_recyclerView)
+
+        if(isEnableRefresh()) {
+            refreshLayout?.setEnableRefresh(isEnableRefresh())//是否启用下拉刷新功能
+        }
+        if(isEnableLoadMore()) {
+            refreshLayout?.setEnableLoadMore(isEnableLoadMore())//是否启用上拉加载功能
+        }
+        if(isEnableRefresh()) {
+            refreshLayout?.setOnRefreshListener { ref ->
+                onRefreshData()
+            }
+        }
+        if(isEnableLoadMore()) {
+            refreshLayout?.setOnLoadMoreListener { ref ->
+                onLoadMoreData()
+            }
+        }
+    }
+
+    /// 下拉刷新数据
+    open fun onRefreshData() {}
+
+    /// 上拉加载数据
+    open fun onLoadMoreData() {}
+
+    //结束下拉刷新
+    protected fun finishRefresh() {
+        refreshLayout?.let {
+            if (it.isRefreshing) it.finishRefresh(300)
+        }
+    }
+
+    //结束加载更多
+    protected fun finishLoadMore() {
+        refreshLayout?.let {
+            if (it.isLoading) it.finishLoadMore(300)
+        }
     }
 
     /**
