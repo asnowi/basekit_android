@@ -11,6 +11,7 @@ import com.maple.basekit.ui.fragment.MineFragment
 import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.UIUtils
+import com.maple.common.base.BaseFragment
 import com.maple.common.base.BaseViewActivity
 import com.maple.common.common.MyFragmentStateAdapter
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
@@ -32,10 +33,9 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    private val list: List<Fragment> by lazy { listOf<Fragment>(
-        MainFragment.getInstance(viewModel),
-        MineFragment.getInstance(viewModel)
-    ) }
+    private val list by lazy {
+        listOf(MainFragment.getInstance(), MineFragment.getInstance())
+    }
 
     override fun getLayoutId(): Int = R.layout.activity_home
 
@@ -64,20 +64,6 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
         binding.llMine.onClick {
             playLottieView(1)
         }
-
-
-
-//        binding.bnav.setOnNavigationItemSelectedListener { item ->
-//            when(item.itemId){
-//                R.id.item_nav_main ->{
-//                    binding.pager.currentItem = 0
-//                }
-//                R.id.item_nav_mine ->{
-//                    binding.pager.currentItem = 1
-//                }
-//            }
-//            false
-//        }
     }
 
     private fun playLottieView (position: Int, isFirst: Boolean = false) {

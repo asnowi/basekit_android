@@ -1,5 +1,6 @@
 package com.maple.basekit.vm
 
+import androidx.databinding.ObservableField
 import com.maple.basekit.db.DBHelper
 import com.maple.basekit.db.UserInfo
 import com.maple.baselib.app.manager.SingleLiveEvent
@@ -11,14 +12,15 @@ class HomeViewModel: BaseViewModel() {
 
     val noticeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val loadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val logoutEvent: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val avatarEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     init {
         setUserInfo()
     }
 
     fun setUserInfo () {
-        userInfoEvent.value = DBHelper.getUserInfo()
+        userInfoEvent.postValue(DBHelper.getUserInfo())
     }
 
     fun onTest1Click() {
@@ -33,6 +35,9 @@ class HomeViewModel: BaseViewModel() {
         loadingEvent.call()
     }
 
+    fun onAvatar () {
+        avatarEvent.call()
+    }
 
     fun onLogout () {
         logoutEvent.call()

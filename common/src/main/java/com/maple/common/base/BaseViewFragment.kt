@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.maple.baselib.base.BaseViewModel
-import com.maple.baselib.utils.LogUtils
 import com.maple.common.R
 import com.maple.common.widget.state.*
 import com.zy.multistatepage.MultiStateContainer

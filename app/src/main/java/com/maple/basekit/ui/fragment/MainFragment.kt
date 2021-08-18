@@ -2,8 +2,6 @@ package com.maple.basekit.ui.fragment
 
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMainBinding
 import com.maple.basekit.model.entity.BannerEntity
@@ -14,8 +12,8 @@ import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewFragment
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
-class MainFragment(val viewModel: HomeViewModel) :
-    BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
+class MainFragment: BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun hasUsedStateView(): Boolean = true
 
@@ -51,13 +49,13 @@ class MainFragment(val viewModel: HomeViewModel) :
 
     companion object {
         @JvmStatic
-        fun getInstance(viewModel: HomeViewModel): MainFragment {
-            return MainFragment(viewModel)
+        fun getInstance(): MainFragment {
+            return MainFragment()
         }
     }
 
     override fun bindViewModel() {
-        binding.viewModel = this.viewModel
+        binding.viewModel = viewModel
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_main
@@ -105,4 +103,10 @@ class MainFragment(val viewModel: HomeViewModel) :
         mainAdapter.updateListData(newList)
         finishRefresh()
     }
+
+
+    override fun onRestLoad() {
+        super.onRestLoad()
+    }
+
 }

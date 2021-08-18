@@ -2,8 +2,8 @@ package com.maple.basekit.db
 
 data class UserInfo (
     val userId: String = "",
-    val nikeName: String = "",
-    val phone: String = "",
-    val avatar: String = "",
-    val token: String = ""
+    var nikeName: String = "",
+    var phone: String = "",
+    var avatar: String = "",
+    var token: String = ""
 )
