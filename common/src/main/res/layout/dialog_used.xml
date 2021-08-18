@@ -65,7 +65,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:textColor="@color/common_gray"
                 android:textSize="@dimen/common_font_mini"
-                android:text="不同意" />
+                android:text="不同意且退出" />
 
 
             <Button

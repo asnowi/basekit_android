@@ -5,36 +5,24 @@ import com.maple.basekit.db.DBHelper
 import com.maple.basekit.db.UserInfo
 import com.maple.baselib.app.manager.SingleLiveEvent
 import com.maple.baselib.base.BaseViewModel
+import com.maple.baselib.utils.LogUtils
 
 class HomeViewModel: BaseViewModel() {
-
-    val userInfoEvent: SingleLiveEvent<UserInfo?> = SingleLiveEvent()
+    val userInfo: ObservableField<UserInfo?> = ObservableField()
 
     val noticeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val loadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val avatarEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
+
     init {
-        setUserInfo()
+        userInfo.set(DBHelper.getUserInfo())
+        LogUtils.logGGQ("==UserInfo===>>>${userInfo.get() != null}")
     }
 
-    fun setUserInfo () {
-        userInfoEvent.postValue(DBHelper.getUserInfo())
-    }
-
-    fun onTest1Click() {
+    fun onNotice () {
         noticeEvent.call()
     }
-
-    fun onTest2Click() {
-        defUI.onToast("测试2")
-    }
-
-    fun onTest3Click () {
-        loadingEvent.call()
-    }
-
     fun onAvatar () {
         avatarEvent.call()
     }

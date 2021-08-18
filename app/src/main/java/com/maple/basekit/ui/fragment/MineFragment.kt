@@ -1,7 +1,6 @@
 package com.maple.basekit.ui.fragment
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -17,6 +16,7 @@ import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMineBinding
 import com.maple.basekit.db.DBHelper
+import com.maple.basekit.db.UserInfo
 import com.maple.basekit.ui.activity.AccountActivity
 import com.maple.basekit.ui.activity.NoticeActivity
 import com.maple.basekit.vm.HomeViewModel
@@ -24,7 +24,6 @@ import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.PermissionUtil
 import com.maple.baselib.utils.RequestPermission
 import com.maple.baselib.utils.UIUtils
-import com.maple.baselib.widget.imageloader.ImageLoader
 import com.maple.baselib.widget.imageloader.TransType
 import com.maple.baselib.widget.imageloader.glide.GlideImageConfig
 import com.maple.common.base.BaseActivity
@@ -40,7 +39,6 @@ import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
     private val viewModel by viewModels<HomeViewModel>()
 
-    private var isShowLoading = false
     override fun hasStatusBarMode(): Boolean = true
 
     private val rxPermissions: RxPermissions by lazy { RxPermissions(this) }
@@ -93,70 +91,40 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
             showToast(it)
         })
 
-        viewModel.userInfoEvent.observe(this, Observer {
-            if(it != null) {
-                LogUtils.logGGQ("--已登录--")
-                binding.tvName.text = it.phone
-                binding.ivAvatar.loadConfigImage(it.avatar, config = GlideImageConfig(it.avatar,binding.ivAvatar,loadingDrawable = ShimmerDrawable()).apply { type = TransType.CIRCLE })
-                binding.btnLogout.apply {
-                    text = "退出登录"
-                    background = UIUtils.getDrawable(R.drawable.shape_common_enable)
-                }
-
-            } else {
-                LogUtils.logGGQ("--未登录--")
-                binding.tvName.text = "请登录"
-                binding.ivAvatar.loadImage(R.drawable.ic_default_avatar)
-                binding.btnLogout.apply {
-                    text = "点击登录"
-                    background = UIUtils.getDrawable(R.drawable.selector_common)
-                }
-            }
-        })
-
         viewModel.noticeEvent.observe(this, Observer {
-            if(viewModel.userInfoEvent.value != null) {
+            viewModel.userInfo.get()?.let {
                 (activity as BaseActivity).onStartActivity(NoticeActivity::class.java)
-            } else {
+            }?:let {
                 openLogin()
             }
         })
 
-        viewModel.loadingEvent.observe(this, {
-            if (isShowLoading) {
-                isShowLoading = false
-                dismissLoading()
-            } else {
-                isShowLoading = true
-                showLoading()
-            }
-        })
         viewModel.avatarEvent.observe(this, Observer {
-           if(viewModel.userInfoEvent.value != null) {
-               pictureDialog.show()
-           } else {
-               openLogin()
-           }
+            viewModel.userInfo.get()?.let { user ->
+                pictureDialog.show()
+            }?:let {
+                openLogin()
+            }
         })
         viewModel.logoutEvent.observe(this, Observer {
-            if(viewModel.userInfoEvent.value != null) {
+            viewModel.userInfo.get()?.let {
                 logoutDialog.show()
-            } else {
+            }?:let {
                 openLogin()
             }
         })
+        checkUserInfo()
     }
 
     override fun onRestLoad() {
         super.onRestLoad()
-        viewModel.setUserInfo()
+        checkUserInfo()
     }
-
 
     private fun clearUserInfo () {
         SPUtils.getInstance().clear()
         DBHelper.removeUser()
-        viewModel.userInfoEvent.value = null
+        checkUserInfo()
     }
 
     private fun openLogin() {
@@ -225,7 +193,7 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
                         //上传图片
                         if(!TextUtils.isEmpty(compressPath)){
                             LogUtils.logGGQ("-相机-${type}->>${compressPath}--大小->>${FileUtils.getSize(compressPath)}")
-                            binding.ivImg.loadImage(compressPath)
+                            binding.ivAvatar.loadImage(compressPath)
                         }else{
                             showToast("拍照出错,请重新拍照！")
                         }
@@ -266,7 +234,7 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
                         if(!TextUtils.isEmpty(compressPath)){
                             // showToast("type->${type}-图片大小：${FileUtils.getSize(compressPath)}")
                             LogUtils.logGGQ("-相册-${type}->>${compressPath}--大小->>${FileUtils.getSize(compressPath)}")
-                            binding.ivImg.loadImage(compressPath)
+                            binding.ivAvatar.loadImage(compressPath)
                         }else{
                             showToast("选择照片出错,请重新选择！")
                         }
@@ -279,5 +247,26 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
                     showToast("取消")
                 }
             })
+    }
+
+    private fun checkUserInfo() {
+        viewModel.userInfo.set(DBHelper.getUserInfo())
+        viewModel.userInfo.get()?.let { user ->
+            LogUtils.logGGQ("--已登录--")
+            binding.tvName.text = user.phone
+            binding.ivAvatar.loadConfigImage(user.avatar, config = GlideImageConfig(user.avatar,binding.ivAvatar,loadingDrawable = ShimmerDrawable()).apply { type = TransType.CIRCLE })
+            binding.btnLogout.apply {
+                text = "退出登录"
+                background = UIUtils.getDrawable(R.drawable.shape_common_enable)
+            }
+        }?:let {
+            LogUtils.logGGQ("--未登录--")
+            binding.tvName.text = "请登录"
+            binding.ivAvatar.loadImage(R.drawable.ic_default_avatar)
+            binding.btnLogout.apply {
+                text = "点击登录"
+                background = UIUtils.getDrawable(R.drawable.selector_common)
+            }
+        }
     }
 }
