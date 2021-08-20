@@ -1,5 +1,6 @@
 package com.maple.basekit.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.maple.basekit.R
@@ -10,6 +11,7 @@ import com.maple.basekit.ui.adapter.MainAdapter
 import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.UIUtils
 import com.maple.common.base.BaseViewFragment
+import com.maple.common.common.ScrollWebViewActivity
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 class MainFragment: BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
@@ -32,7 +34,8 @@ class MainFragment: BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
 
             override fun onListItemClick(pos: Int, item: MainEntity?) {
                 item?.let {
-                    showToast(it.name)
+                    //showToast(it.name)
+                    startActivity(Intent(requireContext(),ScrollWebViewActivity::class.java))
                 }
             }
         })

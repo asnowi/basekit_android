@@ -27,6 +27,11 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
+
+        <activity android:name="com.maple.common.common.ScrollWebViewActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
     </application>
 
 </manifest>

@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
+import com.kongqw.network.monitor.NetworkMonitorManager
+import com.kongqw.network.monitor.enums.NetworkState
+import com.kongqw.network.monitor.interfaces.NetworkMonitor
 import com.maple.baselib.utils.Event
 import com.maple.baselib.utils.EventBusUtils
 import org.greenrobot.eventbus.Subscribe
@@ -29,6 +32,9 @@ abstract class BaseActivity: AppCompatActivity(), IView {
 
     // 是否使用 返回键拦截
     open fun hasEventKeyBack(): Boolean = false
+
+    // 是否使用 监听网络状态变化
+    open fun hasNetworkMonitor(): Boolean = false
 
     /// base 中相比 initData 之前的调用的方法,用来封装初始化下拉刷新组件
     open fun initView(savedInstanceState: Bundle?) {}
@@ -58,6 +64,9 @@ abstract class BaseActivity: AppCompatActivity(), IView {
         }
         initView(savedInstanceState)
         initData(savedInstanceState)
+        if(hasNetworkMonitor()) {
+            NetworkMonitorManager.getInstance().register(this)
+        }
     }
 
     /// 设置布局文件(BaseActivity 和 BaseViewActivity分别重写)
@@ -134,8 +143,17 @@ abstract class BaseActivity: AppCompatActivity(), IView {
      */
     open fun <T> onStickyEventBusDispense(event: Event<T>) {}
 
+    @NetworkMonitor
+    fun onNetWorkStateChange(networkState: NetworkState) {
+
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
+        if(hasNetworkMonitor()) {
+            NetworkMonitorManager.getInstance().unregister(this)
+        }
         if(hasUsedEventBus()) {
             EventBusUtils.unregister(this)
         }

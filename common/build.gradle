@@ -107,6 +107,8 @@ dependencies {
     /// 图片选择器
     api 'io.github.lucksiege:pictureselector:v2.7.3-rc06'
 
+    /// WebView
+    api 'com.github.Tijn1314:NestedScrollWebView:1.1'
 
 //    api('org.jetbrains.anko:anko:0.10.8') {
 //        exclude module: 'support-v4'

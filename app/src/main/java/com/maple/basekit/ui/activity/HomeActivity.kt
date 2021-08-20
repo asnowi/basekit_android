@@ -2,7 +2,6 @@ package com.maple.basekit.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.maple.basekit.R
 import com.maple.basekit.databinding.ActivityHomeBinding
@@ -11,7 +10,6 @@ import com.maple.basekit.ui.fragment.MineFragment
 import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.UIUtils
-import com.maple.common.base.BaseFragment
 import com.maple.common.base.BaseViewActivity
 import com.maple.common.common.MyFragmentStateAdapter
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX

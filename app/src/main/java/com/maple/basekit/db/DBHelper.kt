@@ -41,7 +41,10 @@ class DBHelper private constructor() {
         fun removeUser() {
             kv?.remove(KEY_USER)
         }
-    }
 
+        fun updateUserInfo(userInfo: UserInfo?): Boolean {
+            return saveUser(userInfo)
+        }
+    }
 
 }

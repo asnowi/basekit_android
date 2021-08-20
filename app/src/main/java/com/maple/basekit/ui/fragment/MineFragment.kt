@@ -7,7 +7,6 @@ import android.text.TextUtils
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.*
-import com.facebook.shimmer.ShimmerDrawable
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -16,7 +15,6 @@ import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMineBinding
 import com.maple.basekit.db.DBHelper
-import com.maple.basekit.db.UserInfo
 import com.maple.basekit.ui.activity.AccountActivity
 import com.maple.basekit.ui.activity.NoticeActivity
 import com.maple.basekit.vm.HomeViewModel
@@ -24,11 +22,8 @@ import com.maple.baselib.utils.LogUtils
 import com.maple.baselib.utils.PermissionUtil
 import com.maple.baselib.utils.RequestPermission
 import com.maple.baselib.utils.UIUtils
-import com.maple.baselib.widget.imageloader.TransType
-import com.maple.baselib.widget.imageloader.glide.GlideImageConfig
 import com.maple.common.base.BaseActivity
 import com.maple.common.base.BaseViewFragment
-import com.maple.common.ext.loadConfigImage
 import com.maple.common.ext.loadImage
 import com.maple.common.widget.dialog.CommonDialog
 import com.maple.common.widget.dialog.PictureOptionDialog
@@ -122,7 +117,6 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
     }
 
     private fun clearUserInfo () {
-        SPUtils.getInstance().clear()
         DBHelper.removeUser()
         checkUserInfo()
     }
@@ -193,7 +187,8 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
                         //上传图片
                         if(!TextUtils.isEmpty(compressPath)){
                             LogUtils.logGGQ("-相机-${type}->>${compressPath}--大小->>${FileUtils.getSize(compressPath)}")
-                            binding.ivAvatar.loadImage(compressPath)
+                            // binding.ivAvatar.loadImage(compressPath)
+                            updateAvatar(compressPath)
                         }else{
                             showToast("拍照出错,请重新拍照！")
                         }
@@ -234,7 +229,8 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
                         if(!TextUtils.isEmpty(compressPath)){
                             // showToast("type->${type}-图片大小：${FileUtils.getSize(compressPath)}")
                             LogUtils.logGGQ("-相册-${type}->>${compressPath}--大小->>${FileUtils.getSize(compressPath)}")
-                            binding.ivAvatar.loadImage(compressPath)
+                           // binding.ivAvatar.loadImage(compressPath)
+                            updateAvatar(compressPath)
                         }else{
                             showToast("选择照片出错,请重新选择！")
                         }
@@ -254,7 +250,7 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
         viewModel.userInfo.get()?.let { user ->
             LogUtils.logGGQ("--已登录--")
             binding.tvName.text = user.phone
-            binding.ivAvatar.loadConfigImage(user.avatar, config = GlideImageConfig(user.avatar,binding.ivAvatar,loadingDrawable = ShimmerDrawable()).apply { type = TransType.CIRCLE })
+            binding.ivAvatar.loadImage(user.avatar)
             binding.btnLogout.apply {
                 text = "退出登录"
                 background = UIUtils.getDrawable(R.drawable.shape_common_enable)
@@ -267,6 +263,14 @@ class MineFragment: BaseViewFragment<FragmentMineBinding, HomeViewModel>() {
                 text = "点击登录"
                 background = UIUtils.getDrawable(R.drawable.selector_common)
             }
+        }
+    }
+
+    private fun updateAvatar(url: String) {
+        binding.ivAvatar.loadImage(url)
+        viewModel.userInfo.get()?.let { user ->
+            user.avatar = url
+            DBHelper.updateUserInfo(user)
         }
     }
 }
