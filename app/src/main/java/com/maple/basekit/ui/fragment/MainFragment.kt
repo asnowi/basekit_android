@@ -7,6 +7,7 @@ import com.maple.basekit.R
 import com.maple.basekit.databinding.FragmentMainBinding
 import com.maple.basekit.model.entity.BannerEntity
 import com.maple.basekit.model.entity.MainEntity
+import com.maple.basekit.ui.activity.DemoActivity
 import com.maple.basekit.ui.adapter.MainAdapter
 import com.maple.basekit.vm.HomeViewModel
 import com.maple.baselib.utils.UIUtils
@@ -35,7 +36,14 @@ class MainFragment: BaseViewFragment<FragmentMainBinding, HomeViewModel>() {
             override fun onListItemClick(pos: Int, item: MainEntity?) {
                 item?.let {
                     //showToast(it.name)
-                    startActivity(Intent(requireContext(),ScrollWebViewActivity::class.java))
+                    when(pos) {
+                        0 -> {
+                            startActivity(Intent(requireContext(),DemoActivity::class.java))
+                        }
+                        1 -> {
+                            startActivity(Intent(requireContext(),ScrollWebViewActivity::class.java))
+                        }
+                    }
                 }
             }
         })
