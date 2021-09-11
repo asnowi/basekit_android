@@ -44,7 +44,6 @@ class MainAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewH
         this.listener = listener
     }
 
-
     fun setBannerData(list: List<BannerEntity>?) {
         list?.let {
             this.bannerList.addAll(it)
